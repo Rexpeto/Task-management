@@ -1,5 +1,12 @@
 import express from "express";
+import dotenv from "dotenv";
+import connect from "./config/db.js";
 
 const app = express();
+dotenv.config();
 
-app.listen(4010, () => console.log("Servidor en el puerto 4010"));
+connect();
+
+const port = process.env.PORT || 4000;
+
+app.listen(port, () => console.log(`Servidor en el puerto ${port}`));
