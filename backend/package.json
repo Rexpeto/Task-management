@@ -1,0 +1,30 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "Backend node.js and express",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Rexpeto/Task-management.git"
+    },
+    "keywords": [
+        "Node.js",
+        "Express"
+    ],
+    "author": "Carlos Gallardo (Rexpeto)",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Rexpeto/Task-management/issues"
+    },
+    "homepage": "https://github.com/Rexpeto/Task-management#readme",
+    "dependencies": {
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.22"
+    }
+}
