@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import genId from "../helpers/genId.js";
+import genJWT from "../helpers/genJWT.js";
 
 export const register = async (req, res) => {
     const { email } = req.body;
@@ -43,6 +44,7 @@ export const authAccount = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            token: genJWT(user._id),
         });
     } else {
         const error = new Error("Contraseña incorrecta");
