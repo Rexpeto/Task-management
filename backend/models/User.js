@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema(
             trim: true,
             unique: true,
         },
-        toke: {
+        token: {
             type: String,
         },
         confirm: {
