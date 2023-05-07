@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import genId from "../helpers/genId.js";
 
 export const register = async (req, res) => {
     const { email } = req.body;
@@ -12,6 +13,7 @@ export const register = async (req, res) => {
 
     try {
         const user = new User(req.body);
+        user.token = genId();
         const userDb = await user.save();
         res.send(userDb);
     } catch (error) {
