@@ -127,3 +127,7 @@ export const resetPassword = async (req, res) => {
         return res.status(403).json({ msg: error.message });
     }
 };
+
+export const perfil = async (req, res) => {
+    console.log("perfil user");
+};
