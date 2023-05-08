@@ -95,3 +95,16 @@ export const forgotPassword = async (req, res) => {
         console.log(error);
     }
 };
+
+export const checkTokenPass = async (req, res) => {
+    const { token } = req.params;
+
+    const tokenValidate = await User.findOne({ token });
+
+    if (tokenValidate) {
+        return res.status(200).json({ msg: "Token válido" });
+    } else {
+        const error = new Error("Token inválido");
+        return res.status(403).json({ msg: error.message });
+    }
+};
