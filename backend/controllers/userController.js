@@ -73,3 +73,25 @@ export const confirmEmail = async (req, res) => {
         console.log("Error:", error);
     }
 };
+
+export const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        //? check if user exists
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            const error = new Error("El usuario no existe");
+            return res.status(400).json({ msg: error.message });
+        }
+
+        user.token = genId();
+
+        await user.save();
+
+        res.status(200).json({ msg: "Hemos enviado un email" });
+    } catch (error) {
+        console.log(error);
+    }
+};
