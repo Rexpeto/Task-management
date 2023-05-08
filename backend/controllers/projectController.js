@@ -1,4 +1,4 @@
-import Project from "../models/Project";
+import Project from "../models/Project.js";
 
 //? Get project the users
 export const getProject = async (req, res) => {};
