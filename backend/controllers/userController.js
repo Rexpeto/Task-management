@@ -128,6 +128,7 @@ export const resetPassword = async (req, res) => {
     }
 };
 
-export const perfil = async (req, res) => {
-    console.log("perfil user");
+export const perfil = (req, res) => {
+    const { user } = req;
+    res.status(200).json(user);
 };
