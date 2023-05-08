@@ -51,3 +51,25 @@ export const authAccount = async (req, res) => {
         return res.status(403).json({ msg: error.message });
     }
 };
+
+export const confirmEmail = async (req, res) => {
+    const { token } = req.params;
+    try {
+        const userConfirm = await User.findOne({ token });
+
+        //? If not token exist
+        if (!userConfirm) {
+            const error = new Error("Oops no hay cuenta que confirmar");
+
+            return res.status(403).json({ msg: error.message });
+        }
+
+        userConfirm.confirm = true;
+        userConfirm.token = "";
+        userConfirm.save();
+
+        res.status(200).json({ msg: "Cuenta confirmada con exito" });
+    } catch (error) {
+        console.log("Error:", error);
+    }
+};
