@@ -108,3 +108,22 @@ export const checkTokenPass = async (req, res) => {
         return res.status(403).json({ msg: error.message });
     }
 };
+
+export const resetPassword = async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const user = await User.findOne({ token });
+
+    if (user) {
+        user.token = "";
+        user.password = password;
+        user.save();
+        return res
+            .status(200)
+            .json({ msg: "Contraseña guardada correctamente" });
+    } else {
+        const error = new Error("Token inválido");
+        return res.status(403).json({ msg: error.message });
+    }
+};
