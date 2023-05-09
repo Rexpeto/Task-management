@@ -4,7 +4,14 @@ import Project from "../models/Project.js";
 export const getProject = async (req, res) => {};
 
 //? Get projects the users
-export const getProjects = async (req, res) => {};
+export const getProjects = async (req, res) => {
+    try {
+        const project = await Project.find().where("creator").equals(req.user);
+        res.status(200).json(project);
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 //? New project for user
 export const newProject = async (req, res) => {
