@@ -25,6 +25,7 @@ const taskSchema = mongoose.Schema(
             type: String,
             require: true,
             enum: ["Baja", "Media", "Alta"],
+            default: "Baja",
         },
         project: {
             type: mongoose.Schema.Types.ObjectId,
