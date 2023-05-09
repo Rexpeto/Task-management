@@ -19,7 +19,7 @@ router
     .route("/:id")
     .get(checkAuth, getProject)
     .put(checkAuth, editProject)
-    .delete(checkAuth, deleteProject);
+    .post(checkAuth, deleteProject);
 
 router.get("/task/:id", checkAuth, getTask);
 
