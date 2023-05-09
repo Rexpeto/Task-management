@@ -75,6 +75,24 @@ export const updateTask = async (req, res) => {
     }
 };
 
-export const deleteTask = async (req, res) => {};
+export const deleteTask = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const task = await Task.findById(id).populate("project");
+
+        if (!task) {
+            return res.status(404).json({ msg: "Tarea no encontrada" });
+        }
+
+        if (task.project.creator.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ msg: "Acción no válida" });
+        }
+
+        task.deleteOne();
+        res.status(200).json({ msg: "Eliminado con exito" });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export const changeStatus = async (req, res) => {};
