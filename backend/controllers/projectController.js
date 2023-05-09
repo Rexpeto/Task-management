@@ -73,7 +73,26 @@ export const editProject = async (req, res) => {
 };
 
 //? Delete project
-export const deleteProject = async (req, res) => {};
+export const deleteProject = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const project = await Project.findById(id);
+
+        if (!project) {
+            return res.status(404).json({ msg: "El proyecto no existe" });
+        }
+
+        if (project.creator.toString() !== req.user._id.toString()) {
+            return res.status(401).json({ msg: "Acción no válida" });
+        }
+
+        await project.deleteOne();
+        res.status(200).json({ msg: "Projecto eliminado con exito" });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 //? Add collaborators
 export const addCollaborators = async (req, res) => {};
