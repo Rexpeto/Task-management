@@ -95,4 +95,24 @@ export const deleteTask = async (req, res) => {
     }
 };
 
-export const changeStatus = async (req, res) => {};
+export const changeStatus = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    try {
+        const task = await Task.findById(id).populate("project");
+
+        if (!task) {
+            return res.status(404).json({ msg: "Tarea no encontrada" });
+        }
+
+        if (task.project.creator.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ msg: "Acción no válida" });
+        }
+
+        task.status = status || task.status;
+        const newStatus = await task.save();
+        res.status(200).json(newStatus);
+    } catch (error) {
+        console.log(error);
+    }
+};
