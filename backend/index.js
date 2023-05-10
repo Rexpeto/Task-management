@@ -12,7 +12,7 @@ dotenv.config();
 
 connect();
 
-const whiteList = ["http://192.168.1.105:5173"];
+const whiteList = [process.env.FRONTEND_URL];
 
 const corsOptions = {
     origin: function (origin, callback) {

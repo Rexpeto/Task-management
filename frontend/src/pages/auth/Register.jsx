@@ -43,7 +43,7 @@ const Register = () => {
 
         try {
             const { data } = await axios.post(
-                "http://192.168.1.105:4000/api/user/",
+                `${import.meta.env.VITE_BACKEND_URL}/user/`,
                 user
             );
 
