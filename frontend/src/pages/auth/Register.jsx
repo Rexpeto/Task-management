@@ -45,9 +45,9 @@ const Register = () => {
                 user
             );
 
-            console.log(data);
-        } catch (error) {
-            console.log(error);
+            
+        } catch ({ response }) {
+            toast.error(response.data.msg);
         }
     };
 
