@@ -40,7 +40,7 @@ const Login = () => {
                 >
                     Iniciar
                 </button>
-                <div className="flex flex-row gap-3 justify-center mt-6">
+                <div className="flex flex-row gap-3 justify-center mt-6 items-center">
                     <Link
                         className="hover:text-blue-600 transition duration-150"
                         to="register"
