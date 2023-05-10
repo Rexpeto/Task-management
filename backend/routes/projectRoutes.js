@@ -7,7 +7,6 @@ import {
     editProject,
     getProject,
     getProjects,
-    getTask,
     newProject,
 } from "../controllers/projectController.js";
 
@@ -20,8 +19,6 @@ router
     .get(checkAuth, getProject)
     .put(checkAuth, editProject)
     .post(checkAuth, deleteProject);
-
-router.get("/task/:id", checkAuth, getTask);
 
 router.post("/add-collaborators/:id", checkAuth, addCollaborators);
 
