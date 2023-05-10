@@ -15,8 +15,10 @@ export const register = async (req, res) => {
     try {
         const user = new User(req.body);
         user.token = genId();
-        const userDb = await user.save();
-        res.send(userDb);
+        await user.save();
+        res.status(200).json({
+            msg: "Usuario creado correctamente, revise su correo para confirmarlo",
+        });
     } catch (error) {
         console.log(error);
     }
