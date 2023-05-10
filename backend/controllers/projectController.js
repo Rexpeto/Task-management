@@ -1,8 +1,10 @@
 import Project from "../models/Project.js";
+import Task from "../models/Task.js";
 
 //? Get project the users
 export const getProject = async (req, res) => {
     const { id } = req.params;
+    console.log(id);
 
     try {
         const project = await Project.findById(id);
@@ -15,7 +17,9 @@ export const getProject = async (req, res) => {
             return res.status(401).json({ msg: "Acción no válida" });
         }
 
-        res.status(200).json(project);
+        const task = await Task.find().where("project").equals(project._id);
+
+        res.status(200).json({ project, task });
     } catch (error) {
         console.log(error);
     }
@@ -99,6 +103,3 @@ export const addCollaborators = async (req, res) => {};
 
 //? Delete collaborators
 export const deleteCollaborators = async (req, res) => {};
-
-//? Get task
-export const getTask = async (req, res) => {};
