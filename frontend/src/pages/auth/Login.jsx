@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
     return (
         <div className="max-w-sm w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <h3 className="text-lg font-bold mb-6">Iniciar Sesión</h3>
             <form>
                 <div className="mb-6">
                     <label
@@ -40,12 +41,17 @@ const Login = () => {
                     Iniciar
                 </button>
                 <div className="flex flex-row gap-3 justify-center mt-6">
-                    <p>¿No tienes una cuenta?</p>
                     <Link
                         className="hover:text-blue-600 transition duration-150"
                         to="register"
                     >
                         Registrarse
+                    </Link>
+                    <Link
+                        className="hover:text-blue-600 transition duration-150"
+                        to="forgotPass"
+                    >
+                        Olvidé mi contraseña
                     </Link>
                 </div>
             </form>
