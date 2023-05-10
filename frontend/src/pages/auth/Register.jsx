@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Register = () => {
     const [user, setUser] = useState({
@@ -17,7 +18,7 @@ const Register = () => {
         });
     };
 
-    const handdlerSubmit = (e) => {
+    const handdlerSubmit = async (e) => {
         e.preventDefault();
 
         const { name, email, password, r_password } = user;
@@ -36,6 +37,17 @@ const Register = () => {
         if (password !== r_password) {
             toast.warn("Las contraseñas no son iguales");
             return;
+        }
+
+        try {
+            const { data } = await axios.post(
+                "http://192.168.1.105:4000/api/user/",
+                user
+            );
+
+            console.log(data);
+        } catch (error) {
+            console.log(error);
         }
     };
 
