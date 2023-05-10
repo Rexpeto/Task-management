@@ -42,9 +42,14 @@ const Register = () => {
         }
 
         try {
+            const { email, name, password } = user;
             const { data } = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}/user/`,
-                user
+                {
+                    name: name.toLowerCase(),
+                    email: user.email.toLowerCase(),
+                    password,
+                }
             );
 
             setAlert(data);
