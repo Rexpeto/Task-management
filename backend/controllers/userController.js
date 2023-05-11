@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import genId from "../helpers/genId.js";
 import genJWT from "../helpers/genJWT.js";
+import { emailRegister, emailForgotPass } from "../helpers/email.js";
 
 export const register = async (req, res) => {
     const { email } = req.body;
@@ -16,6 +17,13 @@ export const register = async (req, res) => {
         const user = new User(req.body);
         user.token = genId();
         await user.save();
+
+        emailRegister({
+            name: user.name,
+            email: user.email,
+            token: user.token,
+        });
+
         res.status(200).json({
             msg: "Usuario creado correctamente, revise su correo para confirmarlo",
         });
@@ -72,12 +80,13 @@ export const confirmEmail = async (req, res) => {
 
         res.status(200).json({ msg: "Cuenta confirmada con exito" });
     } catch (error) {
-        console.log("Error:", error);
+        res.json({ msg: error });
     }
 };
 
 export const forgotPassword = async (req, res) => {
     const { email } = req.body;
+    console.log(email);
 
     try {
         //? check if user exists
@@ -91,6 +100,12 @@ export const forgotPassword = async (req, res) => {
         user.token = genId();
 
         await user.save();
+
+        emailForgotPass({
+            name: user.name,
+            email: user.email,
+            token: user.token,
+        });
 
         res.status(200).json({ msg: "Hemos enviado un email" });
     } catch (error) {
