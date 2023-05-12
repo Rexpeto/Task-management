@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TbUserCheck, TbUserX } from "react-icons/tb";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import clientAxios from "../../config/clientAxios";
 
 const ConfirmAccount = () => {
     const { id } = useParams();
@@ -10,8 +10,8 @@ const ConfirmAccount = () => {
     useEffect(() => {
         const confirm = async () => {
             try {
-                const { data, status } = await axios(
-                    `${import.meta.env.VITE_BACKEND_URL}/user/confirm/${id}`
+                const { data, status } = await clientAxios(
+                    `/user/confirm/${id}`
                 );
 
                 setUser({

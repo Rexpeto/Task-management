@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, redirect, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
+import clientAxios from "../../config/clientAxios";
 
 const NewPassword = () => {
     const { token } = useParams();
@@ -13,11 +13,7 @@ const NewPassword = () => {
     useEffect(() => {
         const checkToken = async () => {
             try {
-                const { data } = await axios(
-                    `${
-                        import.meta.env.VITE_BACKEND_URL
-                    }/user/checkPass/${token}`
-                );
+                const { data } = await clientAxios(`/user/checkPass/${token}`);
                 setValidate(true);
             } catch ({ response }) {
                 return redirect("/");
@@ -46,8 +42,8 @@ const NewPassword = () => {
         }
 
         try {
-            const { data } = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/user/resetPass/${token}`,
+            const { data } = await clientAxios.post(
+                `/user/resetPass/${token}`,
                 { password }
             );
             toast.success(data.msg);

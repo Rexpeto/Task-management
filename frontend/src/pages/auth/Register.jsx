@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
+import clientAxios from "../../config/clientAxios";
 
 const Register = () => {
     const [user, setUser] = useState({
@@ -43,14 +43,11 @@ const Register = () => {
 
         try {
             const { email, name, password } = user;
-            const { data } = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/user/`,
-                {
-                    name: name.toLowerCase(),
-                    email: user.email.toLowerCase(),
-                    password,
-                }
-            );
+            const { data } = await clientAxios.post(`/user/`, {
+                name: name.toLowerCase(),
+                email: user.email.toLowerCase(),
+                password,
+            });
 
             setAlert(data);
             setUser({
