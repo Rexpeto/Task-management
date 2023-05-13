@@ -7,7 +7,7 @@ import useAuth from "../../hook/useAuth";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { setAuth } = useAuth();
+    const { setAuth, loading } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
