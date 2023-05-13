@@ -6,6 +6,8 @@ import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import NewPassword from "./pages/auth/NewPassword";
 import ConfirmAccount from "./pages/auth/ConfirmAccount";
+import RoutePrivate from "./layouts/RoutePrivate";
+import Project from "./pages/admin/Project";
 
 const App = () => {
     return (
@@ -25,7 +27,10 @@ const App = () => {
                             element={<ConfirmAccount />}
                         />
                     </Route>
-                    <Route path="/admin"></Route>
+
+                    <Route path="/project" element={<RoutePrivate />}>
+                        <Route index element={<Project />} />
+                    </Route>
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
