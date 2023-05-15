@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hook/useAuth";
 import { RiSearchLine, RiArrowDropDownLine } from "react-icons/ri";
 
 const Header = () => {
     const [dropdown, setDropdown] = useState(false);
+    const { auth } = useAuth();
 
     return (
         <header className="px-4 py-3 bg-gray-800/50 shadow fixed w-full">
@@ -42,7 +44,7 @@ const Header = () => {
                             src="profile.jpg"
                             alt="User"
                         />
-                        <p>Carlos Gallardo</p>
+                        <p>{auth.name}</p>
                         <RiArrowDropDownLine
                             className={`${
                                 dropdown ? "rotate-[180deg]" : "rotate-0"
@@ -56,9 +58,9 @@ const Header = () => {
                         } top-[3.5rem] right-2 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800/80 dark:divide-gray-600 transition-all duration-150 overflow-hidden`}
                     >
                         <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                            <div>Carlos Gallardo</div>
+                            <div>{auth.name}</div>
                             <div className="font-medium truncate">
-                                carlos@correo.com
+                                {auth.email}
                             </div>
                         </div>
                         <div className="py-1">
