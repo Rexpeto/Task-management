@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import clientAxios from "../../config/clientAxios";
 import useAuth from "../../hook/useAuth";
@@ -8,6 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { setAuth, loading } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,6 +31,7 @@ const Login = () => {
 
             localStorage.setItem("access_token", data.token);
             setAuth(data);
+            navigate("/project");
         } catch ({ response: { data } }) {
             setPassword("");
             toast.warn(data.msg);
