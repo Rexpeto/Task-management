@@ -6,7 +6,7 @@ const Sidebar = () => {
         <aside className="w-[13.5rem] shadow bg-gray-800/50">
             <nav className="py-4 px-2">
                 <Link
-                    href="#"
+                    to="newProject"
                     className="flex items-center gap-3 py-2 px-2 rounded bg-gray-700/30 hover:bg-gray-700 transition duration-150"
                 >
                     <SiWheniwork className="text-lg" />
