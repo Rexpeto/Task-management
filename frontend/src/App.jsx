@@ -8,7 +8,7 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import NewPassword from "./pages/auth/NewPassword";
 import ConfirmAccount from "./pages/auth/ConfirmAccount";
 import RoutePrivate from "./layouts/RoutePrivate";
-import Project from "./pages/admin/Project";
+import Projects from "./pages/admin/Projects";
 import NewProject from "./pages/admin/NewProject";
 
 const App = () => {
@@ -34,9 +34,10 @@ const App = () => {
                             />
                         </Route>
 
-                        <Route path="/project" element={<RoutePrivate />}>
-                            <Route index element={<Project />} />
+                        <Route path="/projects" element={<RoutePrivate />}>
+                            <Route index element={<Projects />} />
                             <Route path="newProject" element={<NewProject />} />
+                            <Route path=":id" element={<NewProject />} />
                         </Route>
                     </Routes>
                 </ProjectProvider>

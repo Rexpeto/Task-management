@@ -31,7 +31,7 @@ const Login = () => {
 
             localStorage.setItem("access_token", data.token);
             setAuth(data);
-            navigate("/project");
+            navigate("/projects");
         } catch ({ response: { data } }) {
             setPassword("");
             toast.warn(data.msg);

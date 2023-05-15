@@ -10,7 +10,7 @@ const Header = () => {
     return (
         <header className="px-4 py-3 bg-gray-800/50 shadow fixed w-full">
             <div className="md:flex md:justify-between">
-                <Link to="/project" className="flex gap-2 items-center">
+                <Link to="/projects" className="flex gap-2 items-center">
                     <img src="favicon.svg" alt="logo" />
                     <h2 className="font-semibold">Vypers</h2>
                 </Link>

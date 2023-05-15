@@ -24,7 +24,7 @@ export const ProjectProvider = ({ children }) => {
         };
 
         getProject();
-    }, [projects]);
+    }, []);
 
     const submitProject = async (project) => {
         if (!token) return;
@@ -33,7 +33,7 @@ export const ProjectProvider = ({ children }) => {
             const { data } = await clientAxiosPrivate.post("/project", project);
 
             toast.success("Proyecto creado correctamente");
-            navigate("/project");
+            navigate("/projects");
         } catch ({ response }) {
             toast.warn(response.data.msg);
         }
