@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
+import { ProjectProvider } from "./context/ProjectProvider";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -14,26 +15,31 @@ const App = () => {
     return (
         <BrowserRouter>
             <AuthProvider>
-                <Routes>
-                    <Route path="/" element={<AuthLayout />}>
-                        <Route index element={<Login />} />
-                        <Route path="register" element={<Register />} />
-                        <Route path="forgotPass" element={<ForgotPassword />} />
-                        <Route
-                            path="forgotPass/:token"
-                            element={<NewPassword />}
-                        />
-                        <Route
-                            path="confirm/:id"
-                            element={<ConfirmAccount />}
-                        />
-                    </Route>
+                <ProjectProvider>
+                    <Routes>
+                        <Route path="/" element={<AuthLayout />}>
+                            <Route index element={<Login />} />
+                            <Route path="register" element={<Register />} />
+                            <Route
+                                path="forgotPass"
+                                element={<ForgotPassword />}
+                            />
+                            <Route
+                                path="forgotPass/:token"
+                                element={<NewPassword />}
+                            />
+                            <Route
+                                path="confirm/:id"
+                                element={<ConfirmAccount />}
+                            />
+                        </Route>
 
-                    <Route path="/project" element={<RoutePrivate />}>
-                        <Route index element={<Project />} />
-                        <Route path="newProject" element={<NewProject />} />
-                    </Route>
-                </Routes>
+                        <Route path="/project" element={<RoutePrivate />}>
+                            <Route index element={<Project />} />
+                            <Route path="newProject" element={<NewProject />} />
+                        </Route>
+                    </Routes>
+                </ProjectProvider>
             </AuthProvider>
         </BrowserRouter>
     );
