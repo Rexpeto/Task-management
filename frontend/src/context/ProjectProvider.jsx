@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import clientAxios from "../config/clientAxios";
+import clientAxiosPrivate from "../config/clientAxiosPrivate";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -7,25 +7,13 @@ const ProjectContext = createContext();
 
 export const ProjectProvider = ({ children }) => {
     const navigate = useNavigate();
+    const token = localStorage.getItem("access_token");
 
     const submitProject = async (project) => {
-        const token = localStorage.getItem("access_token");
-
         if (!token) return;
 
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        };
-
         try {
-            const { data } = await clientAxios.post(
-                "/project",
-                project,
-                config
-            );
+            const { data } = await clientAxiosPrivate.post("/project", project);
 
             toast.success("Proyecto creado correctamente");
             navigate("/project");
