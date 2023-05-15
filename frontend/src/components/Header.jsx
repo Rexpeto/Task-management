@@ -44,7 +44,7 @@ const Header = () => {
                             src="profile.jpg"
                             alt="User"
                         />
-                        <p>{auth.name}</p>
+                        <p className="capitalize">{auth.name}</p>
                         <RiArrowDropDownLine
                             className={`${
                                 dropdown ? "rotate-[180deg]" : "rotate-0"
@@ -58,7 +58,7 @@ const Header = () => {
                         } top-[3.5rem] right-2 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800/80 dark:divide-gray-600 transition-all duration-150 overflow-hidden`}
                     >
                         <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                            <div>{auth.name}</div>
+                            <div className="capitalize">{auth.name}</div>
                             <div className="font-medium truncate">
                                 {auth.email}
                             </div>
