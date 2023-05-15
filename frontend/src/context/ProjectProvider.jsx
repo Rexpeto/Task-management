@@ -6,8 +6,25 @@ import { useNavigate } from "react-router-dom";
 const ProjectContext = createContext();
 
 export const ProjectProvider = ({ children }) => {
+    const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
     const token = localStorage.getItem("access_token");
+
+    useEffect(() => {
+        const getProject = async () => {
+            try {
+                if (!token) return;
+
+                const { data } = await clientAxiosPrivate("/project");
+
+                setProjects(data);
+            } catch ({ response: { data } }) {
+                toast.warn(data?.msg);
+            }
+        };
+
+        getProject();
+    }, [projects]);
 
     const submitProject = async (project) => {
         if (!token) return;
@@ -23,7 +40,7 @@ export const ProjectProvider = ({ children }) => {
     };
 
     return (
-        <ProjectContext.Provider value={{ submitProject }}>
+        <ProjectContext.Provider value={{ submitProject, projects }}>
             {children}
         </ProjectContext.Provider>
     );
