@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { RiSearchLine, RiArrowDropDownLine } from "react-icons/ri";
 
 const Header = () => {
@@ -7,10 +8,10 @@ const Header = () => {
     return (
         <header className="px-4 py-3 bg-gray-800/50 shadow fixed w-full">
             <div className="md:flex md:justify-between">
-                <div className="flex gap-2 items-center">
+                <Link to="/project" className="flex gap-2 items-center">
                     <img src="favicon.svg" alt="logo" />
                     <h2 className="font-semibold">Vypers</h2>
-                </div>
+                </Link>
 
                 <form className="min-w-[50rem]">
                     <div className="flex">
