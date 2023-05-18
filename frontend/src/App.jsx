@@ -11,6 +11,7 @@ import RoutePrivate from "./layouts/RoutePrivate";
 import Projects from "./pages/admin/Projects";
 import NewProject from "./pages/admin/NewProject";
 import Project from "./pages/admin/Project";
+import UpdateProject from "./pages/admin/UpdateProject";
 
 const App = () => {
     return (
@@ -39,6 +40,10 @@ const App = () => {
                             <Route index element={<Projects />} />
                             <Route path="newProject" element={<NewProject />} />
                             <Route path=":id" element={<Project />} />
+                            <Route
+                                path="edit/:id"
+                                element={<UpdateProject />}
+                            />
                         </Route>
                     </Routes>
                 </ProjectProvider>
