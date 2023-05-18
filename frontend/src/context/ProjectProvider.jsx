@@ -32,11 +32,37 @@ export const ProjectProvider = ({ children }) => {
     const submitProject = async (project) => {
         if (!token) return;
 
+        if (project.id) {
+            await editProject(project);
+        } else {
+            await createProject(project);
+        }
+    };
+
+    const createProject = async (project) => {
         try {
             const { data } = await clientAxiosPrivate.post("/project", project);
 
             toast.success("Proyecto creado correctamente");
             setProjects([...projects, data]);
+            navigate("/projects");
+        } catch ({ response }) {
+            toast.warn(response.data.msg);
+        }
+    };
+
+    const editProject = async (project) => {
+        try {
+            const { data } = await clientAxiosPrivate.put(
+                `/project/${project.id}`,
+                project
+            );
+
+            toast.success("Proyecto editado correctamente");
+            const updateProyects = projects.map((projectState) =>
+                projectState._id === data._id ? data : projectState
+            );
+            setProjects(updateProyects);
             navigate("/projects");
         } catch ({ response }) {
             toast.warn(response.data.msg);
