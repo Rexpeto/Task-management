@@ -107,6 +107,25 @@ export const ProjectProvider = ({ children }) => {
         setModalFormTask(!modalFormTask);
     };
 
+    const submitTask = async ({ name, description, deadline, priority }) => {
+        const task = {
+            name,
+            description,
+            deadline,
+            priority,
+            project: project._id,
+        };
+
+        try {
+            const { data } = await clientAxiosPrivate.post("/task", task);
+
+            console.log(data);
+            handleModalTask();
+        } catch ({ response }) {
+            toast.error(response.data.msg);
+        }
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -118,6 +137,7 @@ export const ProjectProvider = ({ children }) => {
                 deleteProject,
                 handleModalTask,
                 modalFormTask,
+                submitTask,
             }}
         >
             {children}
