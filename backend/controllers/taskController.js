@@ -21,6 +21,10 @@ export const addTask = async (req, res) => {
 
         const taskStorage = await Task.create(req.body);
 
+        existProject.tasks.push(taskStorage._id);
+
+        await existProject.save();
+
         res.status(200).json(taskStorage);
     } catch (error) {
         console.log(error);
