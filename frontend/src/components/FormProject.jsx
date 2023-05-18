@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 import useProject from "../hook/useProject";
 
 const FormProject = () => {
+    const { id } = useParams();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [deadline, setDeadline] = useState("");
     const [clients, setClients] = useState("");
-    const { submitProject } = useProject();
+    const { submitProject, project } = useProject();
+
+    useEffect(() => {
+        if (id && project?.name) {
+            setName(project?.name);
+            setDescription(project?.description);
+            setDeadline(project?.deadline.split("T")[0]);
+            setClients(project?.clients);
+        }
+    }, [id]);
 
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -103,7 +114,7 @@ const FormProject = () => {
                 type="submit"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-150"
             >
-                Crear
+                {id ? "Actualizar" : "Crear"}
             </button>
         </form>
     );
