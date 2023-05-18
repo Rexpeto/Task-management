@@ -83,9 +83,35 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const deleteProject = async (id) => {
+        if (!token) return;
+
+        try {
+            const { data } = await clientAxiosPrivate.post(`/project/${id}`);
+
+            const updateProjects = projects.filter(
+                (projectState) => projectState._id !== id
+            );
+
+            setProjects(updateProjects);
+
+            toast.success(data.msg);
+            navigate("/projects");
+        } catch ({ response }) {
+            toast.error(response.data.msg);
+        }
+    };
+
     return (
         <ProjectContext.Provider
-            value={{ submitProject, projects, getProject, project, loading }}
+            value={{
+                submitProject,
+                projects,
+                getProject,
+                project,
+                loading,
+                deleteProject,
+            }}
         >
             {children}
         </ProjectContext.Provider>
