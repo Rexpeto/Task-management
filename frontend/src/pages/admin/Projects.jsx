@@ -1,7 +1,7 @@
 import CardProject from "../../components/CardProject";
 import useProject from "../../hook/useProject";
 
-const Project = () => {
+const Projects = () => {
     const { projects } = useProject();
 
     return (
@@ -24,4 +24,4 @@ const Project = () => {
     );
 };
 
-export default Project;
+export default Projects;
