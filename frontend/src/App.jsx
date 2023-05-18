@@ -10,6 +10,7 @@ import ConfirmAccount from "./pages/auth/ConfirmAccount";
 import RoutePrivate from "./layouts/RoutePrivate";
 import Projects from "./pages/admin/Projects";
 import NewProject from "./pages/admin/NewProject";
+import Project from "./pages/admin/Project";
 
 const App = () => {
     return (
@@ -37,7 +38,7 @@ const App = () => {
                         <Route path="/projects" element={<RoutePrivate />}>
                             <Route index element={<Projects />} />
                             <Route path="newProject" element={<NewProject />} />
-                            <Route path=":id" element={<NewProject />} />
+                            <Route path=":id" element={<Project />} />
                         </Route>
                     </Routes>
                 </ProjectProvider>
