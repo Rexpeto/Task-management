@@ -17,9 +17,7 @@ export const getProject = async (req, res) => {
             return res.status(401).json({ msg: "Acción no válida" });
         }
 
-        const task = await Task.find().where("project").equals(project._id);
-
-        res.status(200).json({ project, task });
+        res.status(200).json({ project });
     } catch (error) {
         console.log(error);
     }
