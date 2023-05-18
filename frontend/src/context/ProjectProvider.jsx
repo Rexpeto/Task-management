@@ -7,6 +7,9 @@ const ProjectContext = createContext();
 
 export const ProjectProvider = ({ children }) => {
     const [projects, setProjects] = useState([]);
+    const [project, setProject] = useState({});
+    const [loading, setLoading] = useState(true);
+
     const navigate = useNavigate();
     const token = localStorage.getItem("access_token");
 
@@ -40,8 +43,24 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const getProject = async (id) => {
+        setLoading(true);
+        if (!token) return;
+
+        try {
+            const { data } = await clientAxiosPrivate(`/project/${id}`);
+            setProject(data?.project);
+        } catch ({ response }) {
+            toast.error(response.data.msg);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <ProjectContext.Provider value={{ submitProject, projects }}>
+        <ProjectContext.Provider
+            value={{ submitProject, projects, getProject, project, loading }}
+        >
             {children}
         </ProjectContext.Provider>
     );
