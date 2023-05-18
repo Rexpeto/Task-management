@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MdEditNote, MdAssignmentAdd } from "react-icons/md";
 import useProject from "../../hook/useProject";
+import ModalFormTask from "../../components/ModalFormTask";
 
 const Project = () => {
     const { id } = useParams();
     const { getProject, project, loading } = useProject();
+    const [modal, setModal] = useState(false);
 
     useEffect(() => {
         getProject(id);
@@ -37,12 +39,14 @@ const Project = () => {
                 </Link>
             </div>
             <button
+                onClick={() => setModal(true)}
                 className="flex items-center gap-4 p-2 border border-gray-300 text-gray-300 rounded w-[10rem] hover:border-blue-600 hover:bg-blue-600 hover:text-white shadow transition duration-150"
                 type="button"
             >
                 <MdAssignmentAdd className="text-xl" />
                 Nueva tarea
             </button>
+            <ModalFormTask modal={modal} setModal={setModal} />
         </div>
     );
 };
