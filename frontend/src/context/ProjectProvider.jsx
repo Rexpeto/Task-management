@@ -9,6 +9,7 @@ export const ProjectProvider = ({ children }) => {
     const [projects, setProjects] = useState([]);
     const [project, setProject] = useState({});
     const [loading, setLoading] = useState(true);
+    const [modalFormTask, setModalFormTask] = useState(false);
 
     const navigate = useNavigate();
     const token = localStorage.getItem("access_token");
@@ -102,6 +103,10 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const handleModalTask = () => {
+        setModalFormTask(!modalFormTask);
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -111,6 +116,8 @@ export const ProjectProvider = ({ children }) => {
                 project,
                 loading,
                 deleteProject,
+                handleModalTask,
+                modalFormTask,
             }}
         >
             {children}
