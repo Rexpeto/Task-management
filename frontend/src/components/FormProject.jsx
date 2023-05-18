@@ -5,6 +5,7 @@ import useProject from "../hook/useProject";
 
 const FormProject = () => {
     const { id } = useParams();
+    const [idProject, setIdProject] = useState(null);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [deadline, setDeadline] = useState("");
@@ -13,6 +14,7 @@ const FormProject = () => {
 
     useEffect(() => {
         if (id && project?.name) {
+            setIdProject(id);
             setName(project?.name);
             setDescription(project?.description);
             setDeadline(project?.deadline.split("T")[0]);
@@ -20,7 +22,7 @@ const FormProject = () => {
         }
     }, [id]);
 
-    const handlerSubmit = (e) => {
+    const handlerSubmit = async (e) => {
         e.preventDefault();
 
         if ([name, description, deadline, clients].includes("")) {
@@ -28,7 +30,8 @@ const FormProject = () => {
             return;
         }
 
-        submitProject({
+        await submitProject({
+            id: idProject,
             name: name.toLowerCase(),
             description: description.toLowerCase(),
             deadline,
