@@ -33,6 +33,7 @@ export const ProjectProvider = ({ children }) => {
             const { data } = await clientAxiosPrivate.post("/project", project);
 
             toast.success("Proyecto creado correctamente");
+            setProjects([...projects, data]);
             navigate("/projects");
         } catch ({ response }) {
             toast.warn(response.data.msg);
