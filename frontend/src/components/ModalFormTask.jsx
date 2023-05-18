@@ -1,9 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import useProject from "../hook/useProject";
+import { toast } from "react-toastify";
 
 const ModalFormTask = () => {
-    const { modalFormTask, handleModalTask } = useProject();
+    const { modalFormTask, handleModalTask, submitTask } = useProject();
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -11,6 +12,27 @@ const ModalFormTask = () => {
     const [priority, setPriority] = useState("");
 
     const Priority = ["Baja", "Media", "Alta"];
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if ([name, description, deadline, priority].includes("")) {
+            toast.warn("Todos los campos son obligatorios");
+            return;
+        }
+
+        await submitTask({
+            name: name.toLowerCase(),
+            description,
+            deadline,
+            priority,
+        });
+
+        setName("");
+        setDescription("");
+        setDeadline("");
+        setPriority("");
+    };
 
     return (
         <Transition.Root show={modalFormTask} as={Fragment}>
@@ -74,26 +96,27 @@ const ModalFormTask = () => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title
-                                        as="h3"
-                                        className="text-lg leading-6 font-bold text-gray-900"
+                                        as="h1"
+                                        className="leading-6 font-bold text-white text-2xl"
                                     >
-                                        <h1 className="text-white text-2xl">
-                                            Tarea nueva
-                                        </h1>
+                                        Tarea nueva
                                     </Dialog.Title>
 
-                                    <form className="mt-5">
-                                        <div class="mb-6">
+                                    <form
+                                        className="mt-5"
+                                        onSubmit={handleSubmit}
+                                    >
+                                        <div className="mb-6">
                                             <label
                                                 htmlFor="name"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                             >
                                                 Nombre de tarea
                                             </label>
                                             <input
                                                 type="text"
                                                 id="name"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
                                                 placeholder="Nombre de la tarea"
                                                 onChange={(e) =>
                                                     setName(e.target.value)
@@ -102,16 +125,16 @@ const ModalFormTask = () => {
                                             />
                                         </div>
 
-                                        <div class="mb-6">
+                                        <div className="mb-6">
                                             <label
                                                 htmlFor="description"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                             >
                                                 Descripción
                                             </label>
                                             <textarea
                                                 id="description"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
                                                 placeholder="Descripción de la tarea"
                                                 onChange={(e) =>
                                                     setDescription(
@@ -122,17 +145,17 @@ const ModalFormTask = () => {
                                             />
                                         </div>
 
-                                        <div class="mb-6">
+                                        <div className="mb-6">
                                             <label
                                                 htmlFor="deadline"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                             >
                                                 Fecha de entrega
                                             </label>
                                             <input
                                                 type="date"
                                                 id="deadline"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
                                                 placeholder="Nombre de la tarea"
                                                 onChange={(e) =>
                                                     setDeadline(e.target.value)
@@ -141,21 +164,22 @@ const ModalFormTask = () => {
                                             />
                                         </div>
 
-                                        <div class="mb-6">
+                                        <div className="mb-6">
                                             <label
-                                                for="priority"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                htmlFor="priority"
+                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                             >
                                                 Prioridad
                                             </label>
                                             <select
                                                 id="priority"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none transition duration-150"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none transition duration-150"
                                                 onChange={(e) =>
                                                     setPriority(e.target.value)
                                                 }
+                                                value={priority}
                                             >
-                                                <option selected value="">
+                                                <option defaultValue="">
                                                     Seleccione prioridad
                                                 </option>
                                                 {Priority.map((item) => (
@@ -171,7 +195,7 @@ const ModalFormTask = () => {
 
                                         <button
                                             type="submit"
-                                            class="text-white bg-blue-700 hover:bg-blue-800 outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                                            className="text-white bg-blue-700 hover:bg-blue-800 outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
                                         >
                                             Crear tarea
                                         </button>
