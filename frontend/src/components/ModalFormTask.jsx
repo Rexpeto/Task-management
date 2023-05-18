@@ -5,6 +5,13 @@ import useProject from "../hook/useProject";
 const ModalFormTask = () => {
     const { modalFormTask, handleModalTask } = useProject();
 
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [deadline, setDeadline] = useState("");
+    const [priority, setPriority] = useState("");
+
+    const Priority = ["Baja", "Media", "Alta"];
+
     return (
         <Transition.Root show={modalFormTask} as={Fragment}>
             <Dialog
@@ -41,11 +48,11 @@ const ModalFormTask = () => {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
-                        <div className="inline-block align-bottom bg-gray-700 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                        <div className="inline-block align-bottom bg-gray-900 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
                                 <button
                                     type="button"
-                                    className="bg-gray-700 rounded-md text-gray-400 hover:text-gray-500 outline-none transition duration-150"
+                                    className="bg-gray-900 rounded-md text-gray-400 hover:text-gray-500 outline-none transition duration-150"
                                     onClick={handleModalTask}
                                 >
                                     <span className="sr-only">Cerrar</span>
@@ -71,10 +78,104 @@ const ModalFormTask = () => {
                                         className="text-lg leading-6 font-bold text-gray-900"
                                     >
                                         <h1 className="text-white text-2xl">
-                                            Title modal
+                                            Tarea nueva
                                         </h1>
                                     </Dialog.Title>
-                                    <p>Content Modal</p>
+
+                                    <form className="mt-5">
+                                        <div class="mb-6">
+                                            <label
+                                                htmlFor="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                            >
+                                                Nombre de tarea
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="name"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
+                                                placeholder="Nombre de la tarea"
+                                                onChange={(e) =>
+                                                    setName(e.target.value)
+                                                }
+                                                value={name}
+                                            />
+                                        </div>
+
+                                        <div class="mb-6">
+                                            <label
+                                                htmlFor="description"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                            >
+                                                Descripción
+                                            </label>
+                                            <textarea
+                                                id="description"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
+                                                placeholder="Descripción de la tarea"
+                                                onChange={(e) =>
+                                                    setDescription(
+                                                        e.target.value
+                                                    )
+                                                }
+                                                value={description}
+                                            />
+                                        </div>
+
+                                        <div class="mb-6">
+                                            <label
+                                                htmlFor="deadline"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                            >
+                                                Fecha de entrega
+                                            </label>
+                                            <input
+                                                type="date"
+                                                id="deadline"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 outline-none transition duration-150"
+                                                placeholder="Nombre de la tarea"
+                                                onChange={(e) =>
+                                                    setDeadline(e.target.value)
+                                                }
+                                                value={deadline}
+                                            />
+                                        </div>
+
+                                        <div class="mb-6">
+                                            <label
+                                                for="priority"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                            >
+                                                Prioridad
+                                            </label>
+                                            <select
+                                                id="priority"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none transition duration-150"
+                                                onChange={(e) =>
+                                                    setPriority(e.target.value)
+                                                }
+                                            >
+                                                <option selected value="">
+                                                    Seleccione prioridad
+                                                </option>
+                                                {Priority.map((item) => (
+                                                    <option
+                                                        value={item}
+                                                        key={item}
+                                                    >
+                                                        {item}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            class="text-white bg-blue-700 hover:bg-blue-800 outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                                        >
+                                            Crear tarea
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
