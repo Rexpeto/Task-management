@@ -1,15 +1,32 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import useProject from "../hook/useProject";
 import { toast } from "react-toastify";
 
 const ModalFormTask = () => {
-    const { modalFormTask, handleModalTask, submitTask } = useProject();
+    const { modalFormTask, handleModalTask, submitTask, task } = useProject();
 
+    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [deadline, setDeadline] = useState("");
     const [priority, setPriority] = useState("");
+
+    useEffect(() => {
+        if (task?._id) {
+            setId(task._id);
+            setName(task.name);
+            setDescription(task.description);
+            setDeadline(task.deadline);
+            setPriority(task.priority);
+            return;
+        }
+        setId("");
+        setName("");
+        setDescription("");
+        setDeadline("");
+        setPriority("");
+    }, [task]);
 
     const Priority = ["Baja", "Media", "Alta"];
 
@@ -22,12 +39,14 @@ const ModalFormTask = () => {
         }
 
         await submitTask({
+            id,
             name: name.toLowerCase(),
             description,
             deadline,
             priority,
         });
 
+        setId("");
         setName("");
         setDescription("");
         setDeadline("");
@@ -99,7 +118,9 @@ const ModalFormTask = () => {
                                         as="h1"
                                         className="leading-6 font-bold text-white text-2xl"
                                     >
-                                        Tarea nueva
+                                        {id
+                                            ? "Actualizar tarea"
+                                            : "Tarea nueva"}
                                     </Dialog.Title>
 
                                     <form
@@ -197,7 +218,7 @@ const ModalFormTask = () => {
                                             type="submit"
                                             className="text-white bg-blue-700 hover:bg-blue-800 outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
                                         >
-                                            Crear tarea
+                                            {id ? "Actualizar" : "Crear tarea"}
                                         </button>
                                     </form>
                                 </div>
