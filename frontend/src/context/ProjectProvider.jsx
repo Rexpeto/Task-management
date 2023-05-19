@@ -119,8 +119,13 @@ export const ProjectProvider = ({ children }) => {
         try {
             const { data } = await clientAxiosPrivate.post("/task", task);
 
-            console.log(data);
             handleModalTask();
+
+            const updateProject = { ...project };
+            updateProject.tasks = [...project.tasks, data];
+
+            setProject(updateProject);
+            toast.success("Tarea agregado con exito");
         } catch ({ response }) {
             toast.error(response.data.msg);
         }
