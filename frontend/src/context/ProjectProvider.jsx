@@ -10,6 +10,7 @@ export const ProjectProvider = ({ children }) => {
     const [project, setProject] = useState({});
     const [loading, setLoading] = useState(true);
     const [modalFormTask, setModalFormTask] = useState(false);
+    const [task, setTask] = useState({});
 
     const navigate = useNavigate();
     const token = localStorage.getItem("access_token");
@@ -105,6 +106,7 @@ export const ProjectProvider = ({ children }) => {
 
     const handleModalTask = () => {
         setModalFormTask(!modalFormTask);
+        setTask({});
     };
 
     const submitTask = async ({ name, description, deadline, priority }) => {
@@ -131,6 +133,11 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const handleModalEditTask = (task) => {
+        setTask(task);
+        setModalFormTask(true);
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -143,6 +150,8 @@ export const ProjectProvider = ({ children }) => {
                 handleModalTask,
                 modalFormTask,
                 submitTask,
+                handleModalEditTask,
+                task,
             }}
         >
             {children}
