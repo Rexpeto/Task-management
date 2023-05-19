@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { MdEditNote, MdAssignmentAdd } from "react-icons/md";
 import useProject from "../../hook/useProject";
 import ModalFormTask from "../../components/ModalFormTask";
+import CardTask from "../../components/CardTask";
 
 const Project = () => {
     const { id } = useParams();
@@ -13,7 +14,7 @@ const Project = () => {
         getProject(id);
     }, []);
 
-    const { name, description } = project;
+    const { name, description, tasks } = project;
 
     return loading ? (
         <div className="w-full h-full flex items-center justify-center">
@@ -46,6 +47,18 @@ const Project = () => {
                 <MdAssignmentAdd className="text-xl" />
                 Nueva tarea
             </button>
+            {tasks.length ? (
+                <div>
+                    <h2 className="text-xl font-semibold mb-4">Tareas</h2>
+                    <div className="flex flex-col gap-4">
+                        {tasks.map((task) => (
+                            <CardTask task={task} key={task._id} />
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <h2>No hay tareas disponibles</h2>
+            )}
             <ModalFormTask modal={modal} setModal={setModal} />
         </div>
     );
