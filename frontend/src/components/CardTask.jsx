@@ -20,7 +20,7 @@ const CardTask = ({ task }) => {
                     <p>
                         Fecha de entrega:{" "}
                         <span className="font-bold">
-                            {formatDate(deadline)}
+                            {formatDate(deadline.split("T")[0].split("-"))}
                         </span>
                     </p>
                 </div>
