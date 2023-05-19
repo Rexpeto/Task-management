@@ -109,8 +109,15 @@ export const ProjectProvider = ({ children }) => {
         setTask({});
     };
 
-    const submitTask = async ({ name, description, deadline, priority }) => {
+    const submitTask = async ({
+        id,
+        name,
+        description,
+        deadline,
+        priority,
+    }) => {
         const task = {
+            id,
             name,
             description,
             deadline,
@@ -118,6 +125,16 @@ export const ProjectProvider = ({ children }) => {
             project: project._id,
         };
 
+        if (!token) return;
+
+        if (id) {
+            await editTask(task);
+        } else {
+            await setTaskApi(task);
+        }
+    };
+
+    const setTaskApi = async (task) => {
         try {
             const { data } = await clientAxiosPrivate.post("/task", task);
 
@@ -127,7 +144,28 @@ export const ProjectProvider = ({ children }) => {
             updateProject.tasks = [...project.tasks, data];
 
             setProject(updateProject);
-            toast.success("Tarea agregado con exito");
+            toast.success("Tarea agregada con exito");
+        } catch ({ response }) {
+            toast.error(response.data.msg);
+        }
+    };
+
+    const editTask = async (task) => {
+        try {
+            const { data } = await clientAxiosPrivate.put(
+                `/task/${task.id}`,
+                task
+            );
+
+            handleModalTask();
+
+            const updateProject = { ...project };
+            updateProject.tasks = updateProject.tasks.map((taskState) =>
+                taskState._id === data._id ? data : taskState
+            );
+
+            setProject(updateProject);
+            toast.success("Tarea actualizada con exito");
         } catch ({ response }) {
             toast.error(response.data.msg);
         }
