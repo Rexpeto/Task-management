@@ -8,7 +8,6 @@ import CardTask from "../../components/CardTask";
 const Project = () => {
     const { id } = useParams();
     const { getProject, project, loading, handleModalTask } = useProject();
-    const [modal, setModal] = useState(false);
 
     useEffect(() => {
         getProject(id);
@@ -59,7 +58,7 @@ const Project = () => {
             ) : (
                 <h2>No hay tareas disponibles</h2>
             )}
-            <ModalFormTask modal={modal} setModal={setModal} />
+            <ModalFormTask />
         </div>
     );
 };
