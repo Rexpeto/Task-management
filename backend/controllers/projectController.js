@@ -1,5 +1,5 @@
 import Project from "../models/Project.js";
-import Task from "../models/Task.js";
+import User from "../models/User.js";
 
 //? Get project the users
 export const getProject = async (req, res) => {
@@ -108,8 +108,30 @@ export const deleteProject = async (req, res) => {
 export const addCollaborators = async (req, res) => {};
 
 //? Search collaborators
-export const sCollaborators = async (req, res) => {
-    res.send("Hola");
+export const searchCollaborators = async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        res.status(404).json({ msg: "Debe colocar un email" });
+        return;
+    }
+
+    try {
+        const user = await User.findOne({ email }).select(
+            "-password -confirm -createdAt -updatedAt -token -__v"
+        );
+
+        if (!user) {
+            res.status(404).json({
+                msg: "Usuario no existe o correo incorrecto",
+            });
+            return;
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 //? Delete collaborators
