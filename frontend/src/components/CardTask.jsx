@@ -52,7 +52,7 @@ const CardTask = ({ task }) => {
 
                 <button
                     className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-600 to-red-700 group-hover:from-red-600 group-hover:to-red-500 hover:text-white dark:text-white outline-none transition-all duration-150"
-                    onClick={() => handleModalDelete()}
+                    onClick={() => handleModalDelete(task)}
                 >
                     <span className="relative w-full p-2 transition-all ease-in duration-75 bg-white dark:bg-gray-800 rounded-md group-hover:bg-opacity-0">
                         Eliminar
