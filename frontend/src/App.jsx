@@ -12,6 +12,7 @@ import Projects from "./pages/admin/Projects";
 import NewProject from "./pages/admin/NewProject";
 import Project from "./pages/admin/Project";
 import UpdateProject from "./pages/admin/UpdateProject";
+import NewCollaborator from "./pages/admin/NewCollaborator";
 
 const App = () => {
     return (
@@ -43,6 +44,10 @@ const App = () => {
                             <Route
                                 path="edit/:id"
                                 element={<UpdateProject />}
+                            />
+                            <Route
+                                path="add-collaborators/:id"
+                                element={<NewCollaborator />}
                             />
                         </Route>
                     </Routes>
