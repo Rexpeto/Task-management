@@ -4,6 +4,7 @@ import { MdEditNote, MdAssignmentAdd } from "react-icons/md";
 import useProject from "../../hook/useProject";
 import ModalFormTask from "../../components/ModalFormTask";
 import CardTask from "../../components/CardTask";
+import ModalDelete from "../../components/ModalDelete";
 
 const Project = () => {
     const { id } = useParams();
@@ -58,6 +59,7 @@ const Project = () => {
             ) : (
                 <h2>No hay tareas disponibles</h2>
             )}
+            <ModalDelete />
             <ModalFormTask />
         </div>
     );
