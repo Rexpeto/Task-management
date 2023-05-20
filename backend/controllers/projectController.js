@@ -4,20 +4,21 @@ import Task from "../models/Task.js";
 //? Get project the users
 export const getProject = async (req, res) => {
     const { id } = req.params;
-    console.log(id);
 
     try {
-        const project = await Project.findById(id).populate("tasks");
+        if (id.match(/^[0-9a-fA-F]{24}$/)) {
+            const project = await Project.findById(id.trim()).populate("tasks");
 
-        if (!project) {
-            return res.status(404).json({ msg: "El proyecto no existe" });
+            if (!project) {
+                return res.status(404).json({ msg: "El proyecto no existe" });
+            }
+
+            if (project.creator.toString() !== req.user._id.toString()) {
+                return res.status(401).json({ msg: "Acción no válida" });
+            }
+
+            res.status(200).json({ project });
         }
-
-        if (project.creator.toString() !== req.user._id.toString()) {
-            return res.status(401).json({ msg: "Acción no válida" });
-        }
-
-        res.status(200).json({ project });
     } catch (error) {
         console.log(error);
     }
@@ -55,23 +56,25 @@ export const editProject = async (req, res) => {
     const { name, description, clients, deadline } = req.body;
 
     try {
-        const project = await Project.findById(id);
+        if (id.match(/^[0-9a-fA-F]{24}$/)) {
+            const project = await Project.findById(id.trim());
 
-        if (!project) {
-            return res.status(404).json({ msg: "El proyecto no existe" });
+            if (!project) {
+                return res.status(404).json({ msg: "El proyecto no existe" });
+            }
+
+            if (project.creator.toString() !== req.user._id.toString()) {
+                return res.status(401).json({ msg: "Acción no válida" });
+            }
+
+            project.name = name || project.name;
+            project.description = description || project.description;
+            project.clients = clients || project.clients;
+            project.deadline = deadline || project.deadline;
+
+            const projectStore = await project.save();
+            res.status(200).json(projectStore);
         }
-
-        if (project.creator.toString() !== req.user._id.toString()) {
-            return res.status(401).json({ msg: "Acción no válida" });
-        }
-
-        project.name = name || project.name;
-        project.description = description || project.description;
-        project.clients = clients || project.clients;
-        project.deadline = deadline || project.deadline;
-
-        const projectStore = await project.save();
-        res.status(200).json(projectStore);
     } catch (error) {
         console.log(error);
     }
@@ -79,21 +82,23 @@ export const editProject = async (req, res) => {
 
 //? Delete project
 export const deleteProject = async (req, res) => {
-    const { id } = req.params;
+    const { projectId } = req.params;
 
     try {
-        const project = await Project.findById(id);
+        if (projectId.match(/^[0-9a-fA-F]{24}$/)) {
+            const project = await Project.findById(projectId.trim());
 
-        if (!project) {
-            return res.status(404).json({ msg: "El proyecto no existe" });
+            if (!project) {
+                return res.status(404).json({ msg: "El proyecto no existe" });
+            }
+
+            if (project.creator.toString() !== req.user._id.toString()) {
+                return res.status(401).json({ msg: "Acción no válida" });
+            }
+
+            await project.deleteOne();
+            res.status(200).json({ msg: "Proyecto eliminado con exito" });
         }
-
-        if (project.creator.toString() !== req.user._id.toString()) {
-            return res.status(401).json({ msg: "Acción no válida" });
-        }
-
-        await project.deleteOne();
-        res.status(200).json({ msg: "Projecto eliminado con exito" });
     } catch (error) {
         console.log(error);
     }
@@ -102,5 +107,12 @@ export const deleteProject = async (req, res) => {
 //? Add collaborators
 export const addCollaborators = async (req, res) => {};
 
+//? Search collaborators
+export const sCollaborators = async (req, res) => {
+    res.send("Hola");
+};
+
 //? Delete collaborators
-export const deleteCollaborators = async (req, res) => {};
+export const deleteCollaborators = async (req, res) => {
+    res.send("Hola");
+};
