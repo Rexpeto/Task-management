@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MdEditNote, MdAssignmentAdd } from "react-icons/md";
+import { RxCommit } from "react-icons/rx";
 import useProject from "../../hook/useProject";
 import ModalFormTask from "../../components/ModalFormTask";
 import CardTask from "../../components/CardTask";
@@ -59,6 +60,16 @@ const Project = () => {
             ) : (
                 <h2>No hay tareas disponibles</h2>
             )}
+            <div className="flex items-center justify-between mt-10">
+                <h2 className="text-xl font-semibold">Colaboradores</h2>
+                <Link
+                    className="flex items-center gap-2 text-gray-400 hover:text-white transition duration-150"
+                    to={`/projects/add-collaborators/${id}`}
+                >
+                    <p>Añadir</p>
+                    <RxCommit className="text-2xl" />
+                </Link>
+            </div>
             <ModalDelete />
             <ModalFormTask />
         </div>
