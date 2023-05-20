@@ -219,6 +219,7 @@ export const ProjectProvider = ({ children }) => {
             setLoading(false);
         } catch ({ response }) {
             toast.error(response.data.msg);
+            setLoading(false);
         }
     };
 
@@ -231,7 +232,7 @@ export const ProjectProvider = ({ children }) => {
                 collaborator
             );
 
-            console.log(data);
+            toast.success(data.msg);
         } catch ({ response }) {
             toast.error(response.data.msg);
         }
