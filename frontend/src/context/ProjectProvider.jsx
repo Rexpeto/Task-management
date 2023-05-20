@@ -172,12 +172,32 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const deleteTask = async (id) => {
+        if (!token) return;
+
+        try {
+            const { data } = await clientAxiosPrivate.post(`/task/${id}`);
+            toast.success(data.msg);
+
+            const updateProject = { ...project };
+            updateProject.tasks = updateProject.tasks.filter(
+                (taskState) => taskState._id !== id
+            );
+
+            setProject(updateProject);
+            setModdalDelete(false);
+        } catch ({ response }) {
+            toast.error(response.data.msg);
+        }
+    };
+
     const handleModalEditTask = (task) => {
         setTask(task);
         setModalFormTask(true);
     };
 
-    const handleModalDelete = () => {
+    const handleModalDelete = (task) => {
+        setTask(task);
         setModdalDelete(!modalDelete);
     };
 
@@ -197,6 +217,7 @@ export const ProjectProvider = ({ children }) => {
                 task,
                 handleModalDelete,
                 modalDelete,
+                deleteTask,
             }}
         >
             {children}
