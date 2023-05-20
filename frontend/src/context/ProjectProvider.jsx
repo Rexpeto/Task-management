@@ -201,6 +201,12 @@ export const ProjectProvider = ({ children }) => {
         setModdalDelete(!modalDelete);
     };
 
+    const submitCollaborator = async (email) => {
+        if (!token) return;
+
+        console.log(email);
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -218,6 +224,7 @@ export const ProjectProvider = ({ children }) => {
                 handleModalDelete,
                 modalDelete,
                 deleteTask,
+                submitCollaborator,
             }}
         >
             {children}
