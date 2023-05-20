@@ -105,7 +105,50 @@ export const deleteProject = async (req, res) => {
 };
 
 //? Add collaborators
-export const addCollaborators = async (req, res) => {};
+export const addCollaborators = async (req, res) => {
+    const { collaborators } = req.body;
+    const { id } = req.params;
+
+    try {
+        const project = await Project.findById(id);
+
+        if (!project) {
+            const error = new Error("Proyecto no encontrado");
+            return res.status(404).json({ msg: error });
+        }
+
+        if (project.creator.toString() !== req.user._id.toString()) {
+            const error = new Error("Acción no válida");
+            return res.status(404).json({ msg: error });
+        }
+
+        const user = await User.findOne({ email: collaborators }).select(
+            "-password -confirm -createdAt -updatedAt -token -__v"
+        );
+
+        if (!user) {
+            res.status(404).json({
+                msg: "Usuario no encontrado",
+            });
+            return;
+        }
+
+        if (project.creator.toString() === user._id.toString()) {
+            return res.status(403).json({ msg: "No puede ser colaborador" });
+        }
+
+        if (project.collaborators.includes(user._id)) {
+            return res.status(403).json({ msg: "Ya es un colaborador" });
+        }
+
+        project.collaborators.push(user._id);
+        await project.save();
+
+        res.status(200).json({ msg: "Colabolador agregado exitosamente" });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 //? Search collaborators
 export const searchCollaborators = async (req, res) => {
