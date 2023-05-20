@@ -4,7 +4,12 @@ import useProject from "../hook/useProject";
 import { toast } from "react-toastify";
 
 const ModalDelete = () => {
-    const { modalDelete, handleModalDelete } = useProject();
+    const { modalDelete, handleModalDelete, deleteTask, task } = useProject();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await deleteTask(task._id);
+    };
 
     return (
         <Transition.Root show={modalDelete} as={Fragment}>
@@ -74,17 +79,23 @@ const ModalDelete = () => {
                                         ¿Estas seguro en eliminar esta tarea?
                                     </Dialog.Title>
 
-                                    <div className="flex gap-4 mt-5">
-                                        <button className="text-white bg-red-700 hover:bg-red-800 outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center transition duration-150">
+                                    <form
+                                        className="flex gap-4 mt-5"
+                                        onSubmit={handleSubmit}
+                                    >
+                                        <button
+                                            type="submit"
+                                            className="text-white bg-red-700 hover:bg-red-800 outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center transition duration-150"
+                                        >
                                             Si
                                         </button>
-                                        <button
+                                        <div
                                             className="text-white bg-green-700 hover:bg-green-800 outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center transition duration-150"
                                             onClick={() => handleModalDelete()}
                                         >
                                             No
-                                        </button>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
