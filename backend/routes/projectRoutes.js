@@ -8,6 +8,7 @@ import {
     getProject,
     getProjects,
     newProject,
+    sCollaborators,
 } from "../controllers/projectController.js";
 
 const router = express.Router();
@@ -23,5 +24,7 @@ router
 router.post("/add-collaborators/:id", checkAuth, addCollaborators);
 
 router.post("/delete-collaborators/:id", checkAuth, deleteCollaborators);
+
+router.post("/search-collaborators/:id", checkAuth, deleteCollaborators);
 
 export default router;
