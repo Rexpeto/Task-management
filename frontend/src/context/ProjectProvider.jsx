@@ -12,6 +12,7 @@ export const ProjectProvider = ({ children }) => {
     const [modalFormTask, setModalFormTask] = useState(false);
     const [modalDelete, setModdalDelete] = useState(false);
     const [task, setTask] = useState({});
+    const [collaborator, setCollaborator] = useState([]);
 
     const navigate = useNavigate();
     const token = localStorage.getItem("access_token");
@@ -203,8 +204,21 @@ export const ProjectProvider = ({ children }) => {
 
     const submitCollaborator = async (email) => {
         if (!token) return;
+        setLoading(true);
 
-        console.log(email);
+        try {
+            const { data } = await clientAxiosPrivate.post(
+                `/project/search-collaborators/1`,
+                {
+                    email,
+                }
+            );
+
+            setCollaborator([data]);
+            setLoading(false);
+        } catch ({ response }) {
+            toast.error(response.data.msg);
+        }
     };
 
     return (
@@ -225,6 +239,7 @@ export const ProjectProvider = ({ children }) => {
                 modalDelete,
                 deleteTask,
                 submitCollaborator,
+                collaborator,
             }}
         >
             {children}
