@@ -79,9 +79,10 @@ export const ProjectProvider = ({ children }) => {
 
         try {
             const { data } = await clientAxiosPrivate(`/project/${id}`);
-            setProject(data?.project);
+            setProject(data.project);
         } catch ({ response }) {
             toast.error(response.data.msg);
+            navigate("/projects");
         } finally {
             setLoading(false);
         }
@@ -221,6 +222,21 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const addCollaborator = async (collaborator) => {
+        if (!token) return;
+
+        try {
+            const { data } = await clientAxiosPrivate.post(
+                `/project/add-collaborators/${project._id}`,
+                collaborator
+            );
+
+            console.log(data);
+        } catch ({ response }) {
+            toast.error(response.data.msg);
+        }
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -240,6 +256,7 @@ export const ProjectProvider = ({ children }) => {
                 deleteTask,
                 submitCollaborator,
                 collaborator,
+                addCollaborator,
             }}
         >
             {children}
