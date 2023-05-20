@@ -30,7 +30,7 @@ const CardTask = ({ task }) => {
                     <p className="font-bold">Prioridad:</p>
                     <span
                         title={priority}
-                        class={`absolute w-5 h-5 right-[-2rem] top-[0.1rem] ${Priority[priority]} border-2 border-white dark:border-gray-800 rounded-full`}
+                        className={`absolute w-5 h-5 right-[-2rem] top-[0.1rem] ${Priority[priority]} border-2 border-white dark:border-gray-800 rounded-full`}
                     ></span>
                 </div>
             </div>
