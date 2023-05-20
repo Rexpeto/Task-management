@@ -2,20 +2,17 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useProject from "../../hook/useProject";
 import FormCollaborator from "../../components/FormCollaborator";
+import CardCollaborator from "../../components/CardCollaborator";
 
 const NewCollaborator = () => {
     const { id } = useParams();
-    const { getProject, project, loading } = useProject();
+    const { getProject, project, loading, collaborator } = useProject();
 
     useEffect(() => {
         getProject(id);
     }, []);
 
-    return loading ? (
-        <div className="w-full h-full flex items-center justify-center">
-            <span className="loader"></span>
-        </div>
-    ) : (
+    return (
         <>
             <h1 className="text-2xl font-bold">Nuevo colaborador(a)</h1>
             <div className="flex gap-2 mt-2">
@@ -26,9 +23,22 @@ const NewCollaborator = () => {
                     {project.clients}
                 </p>
             </div>
-            <div className="mt-5">
-                <FormCollaborator />
-            </div>
+            {loading ? (
+                <div className="w-full h-full flex items-center justify-center">
+                    <span className="loader"></span>
+                </div>
+            ) : (
+                <div className="mt-5">
+                    <FormCollaborator />
+                    {collaborator.length ? (
+                        <div className="grid grid-cols-4 gap-4 mt-5">
+                            {collaborator.map((user) => (
+                                <CardCollaborator user={user} key={user._id} />
+                            ))}
+                        </div>
+                    ) : null}
+                </div>
+            )}
         </>
     );
 };
