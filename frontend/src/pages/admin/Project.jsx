@@ -6,6 +6,7 @@ import useProject from "../../hook/useProject";
 import ModalFormTask from "../../components/ModalFormTask";
 import CardTask from "../../components/CardTask";
 import ModalDelete from "../../components/ModalDelete";
+import CardCollaborator from "../../components/CardCollaborator";
 
 const Project = () => {
     const { id } = useParams();
@@ -15,7 +16,7 @@ const Project = () => {
         getProject(id);
     }, []);
 
-    const { name, description, tasks } = project;
+    const { name, description, tasks, collaborators } = project;
 
     return loading ? (
         <div className="w-full h-full flex items-center justify-center">
@@ -70,6 +71,15 @@ const Project = () => {
                     <RxCommit className="text-2xl" />
                 </Link>
             </div>
+            {collaborators?.length ? (
+                <div className="grid grid-cols-4 gap-4">
+                    {collaborators.map((user) => (
+                        <CardCollaborator user={user} key={user._id} />
+                    ))}
+                </div>
+            ) : (
+                <h2>No hay colaboradores</h2>
+            )}
             <ModalDelete />
             <ModalFormTask />
         </div>
