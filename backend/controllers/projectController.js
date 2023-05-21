@@ -30,6 +30,7 @@ export const getProject = async (req, res) => {
 export const getProjects = async (req, res) => {
     try {
         const project = await Project.find()
+            .populate("collaborators")
             .where("creator")
             .equals(req.user)
             .select("-tasks");
