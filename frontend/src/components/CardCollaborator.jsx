@@ -2,7 +2,7 @@ import useProject from "../hook/useProject";
 
 const CardCollaborator = ({ user }) => {
     const { _id, name, email } = user;
-    const { addCollaborator, project } = useProject();
+    const { addCollaborator, project, handleModalCollaborator } = useProject();
 
     const collaborator = project.collaborators.filter(
         (item) => item._id === _id
@@ -27,6 +27,9 @@ const CardCollaborator = ({ user }) => {
                         <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 outline-none dark:bg-red-600 dark:hover:bg-red-700 transition duration-150"
+                            onClick={() =>
+                                handleModalCollaborator(collaborator[0])
+                            }
                         >
                             Eliminar
                         </button>
