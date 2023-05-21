@@ -182,5 +182,27 @@ export const searchCollaborators = async (req, res) => {
 
 //? Delete collaborators
 export const deleteCollaborators = async (req, res) => {
-    res.send("Hola");
+    const { id } = req.params;
+    const { _id } = req.body;
+
+    try {
+        if (id.match(/^[0-9a-fA-F]{24}$/)) {
+            const project = await Project.findById(id.trim());
+
+            if (!project) {
+                return res.status(404).json({ msg: "El proyecto no existe" });
+            }
+
+            if (project.creator.toString() !== req.user._id.toString()) {
+                return res.status(401).json({ msg: "Acción no válida" });
+            }
+
+            project.collaborators.pull(_id);
+            await project.save();
+
+            res.status(200).json({ msg: "Colaborador eliminado exitosamente" });
+        }
+    } catch (error) {
+        console.log(error);
+    }
 };
