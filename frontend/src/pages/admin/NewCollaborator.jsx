@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useProject from "../../hook/useProject";
 import FormCollaborator from "../../components/FormCollaborator";
 import CardCollaborator from "../../components/CardCollaborator";
+import ModalDeleteCollaborator from "../../components/ModalDeleteCollaborator";
 
 const NewCollaborator = () => {
     const { id } = useParams();
@@ -37,6 +38,7 @@ const NewCollaborator = () => {
                             ))}
                         </div>
                     ) : null}
+                    <ModalDeleteCollaborator />
                 </div>
             )}
         </>
