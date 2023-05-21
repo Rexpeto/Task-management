@@ -7,6 +7,7 @@ import ModalFormTask from "../../components/ModalFormTask";
 import CardTask from "../../components/CardTask";
 import ModalDelete from "../../components/ModalDelete";
 import CardCollaborator from "../../components/CardCollaborator";
+import ModalDeleteCollaborator from "../../components/ModalDeleteCollaborator";
 
 const Project = () => {
     const { id } = useParams();
@@ -82,6 +83,7 @@ const Project = () => {
             )}
             <ModalDelete />
             <ModalFormTask />
+            <ModalDeleteCollaborator />
         </div>
     );
 };
