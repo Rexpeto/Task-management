@@ -37,9 +37,7 @@ const CardCollaborator = ({ user }) => {
                         <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 outline-none dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-150"
-                            onClick={() =>
-                                addCollaborator({ collaborators: email })
-                            }
+                            onClick={() => addCollaborator(user)}
                         >
                             Agregar al proyecto
                         </button>
