@@ -244,6 +244,40 @@ export const ProjectProvider = ({ children }) => {
         setCollaborator(collaborator);
     };
 
+    const deleteCollaborator = async () => {
+        try {
+            const { data } = await clientAxiosPrivate.post(
+                `/project/delete-collaborators/${project._id}`,
+                collaborator
+            );
+
+            const updateProject = { ...project };
+            updateProject.collaborators = updateProject.collaborators.filter(
+                (collaboratorState) =>
+                    collaboratorState._id !== collaborator._id
+            );
+
+            setProject(updateProject);
+
+            const updateProyects = projects.map((projectState) =>
+                projectState._id === updateProject._id
+                    ? updateProject
+                    : projectState
+            );
+
+            setProjects(updateProyects);
+
+            toast.success(data.msg);
+
+            setModalCollaborator(false);
+            setCollaborator({});
+        } catch ({ response }) {
+            toast.error(response.data.msg);
+            setModalCollaborator(false);
+            setCollaborator({});
+        }
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -266,6 +300,7 @@ export const ProjectProvider = ({ children }) => {
                 addCollaborator,
                 modalCollaborator,
                 handleModalCollaborator,
+                deleteCollaborator,
             }}
         >
             {children}
