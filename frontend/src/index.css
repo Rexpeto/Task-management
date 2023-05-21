@@ -37,3 +37,18 @@
         opacity: 0;
     }
 }
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(31 41 55);
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(42, 55, 73);
+}
