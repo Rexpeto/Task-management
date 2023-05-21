@@ -19,7 +19,7 @@ const RoutePrivate = () => {
                     <Header />
                     <div className="md:flex md:min-h-screen pt-[4rem]">
                         <Sidebar />
-                        <main className="p-4 w-full">
+                        <main className="p-4 pl-[13rem] w-full">
                             <Outlet />
                         </main>
                     </div>

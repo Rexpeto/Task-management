@@ -3,8 +3,8 @@ import { SiWheniwork } from "react-icons/si";
 
 const Sidebar = () => {
     return (
-        <aside className="w-[13.5rem] shadow bg-gray-800/50">
-            <nav className="py-4 px-2">
+        <aside className="fixed top-0 left-0 w-50 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-gray-800/90">
+            <nav className="h-full pt-[5rem] px-3 py-4 overflow-y-auto">
                 <Link
                     to="newProject"
                     className="flex items-center gap-3 py-2 px-2 rounded bg-gray-700/30 hover:bg-gray-700 transition duration-150"

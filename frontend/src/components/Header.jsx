@@ -8,7 +8,7 @@ const Header = () => {
     const { auth } = useAuth();
 
     return (
-        <header className="px-4 py-3 bg-gray-800/50 shadow fixed w-full">
+        <header className="px-4 py-3 bg-gray-800 fixed w-full z-10">
             <div className="md:flex md:justify-between">
                 <Link to="/projects" className="flex gap-2 items-center">
                     <img src="favicon.svg" alt="logo" />
