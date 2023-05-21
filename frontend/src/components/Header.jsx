@@ -3,15 +3,14 @@ import { Link } from "react-router-dom";
 import useAuth from "../hook/useAuth";
 import { RiSearchLine, RiArrowDropDownLine } from "react-icons/ri";
 
-const Header = ({setDropdown, dropdown}) => {
-    
+const Header = ({ setDropdown, dropdown }) => {
     const { auth } = useAuth();
 
     return (
         <header className="px-4 py-3 bg-gray-800 fixed w-full z-10">
             <div className="md:flex md:justify-between">
                 <Link to="/projects" className="flex gap-2 items-center">
-                    <img src="favicon.svg" alt="logo" />
+                    <img src="../public/favicon.svg" alt="logo" />
                     <h2 className="font-semibold">Vypers</h2>
                 </Link>
 
@@ -41,7 +40,7 @@ const Header = ({setDropdown, dropdown}) => {
                         <img
                             type="button"
                             className="w-8 h-8 rounded"
-                            src="profile.jpg"
+                            src="../public/profile.jpg"
                             alt="User"
                         />
                         <p className="capitalize">{auth.name}</p>
