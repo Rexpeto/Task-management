@@ -7,7 +7,9 @@ export const getProject = async (req, res) => {
 
     try {
         if (id.match(/^[0-9a-fA-F]{24}$/)) {
-            const project = await Project.findById(id.trim()).populate("tasks");
+            const project = await Project.findById(id.trim())
+                .populate("tasks")
+                .populate("collaborators", "name email");
 
             if (!project) {
                 return res.status(404).json({ msg: "El proyecto no existe" });
