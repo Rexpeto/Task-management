@@ -230,8 +230,19 @@ export const ProjectProvider = ({ children }) => {
         try {
             const { data } = await clientAxiosPrivate.post(
                 `/project/add-collaborators/${project._id}`,
-                collaborator
+                { collaborators: collaborator.email }
             );
+
+            const updateProject = { ...project };
+            updateProject.collaborators.push(collaborator);
+
+            const updateProyects = projects.map((projectState) =>
+                projectState._id === updateProject._id
+                    ? updateProject
+                    : projectState
+            );
+
+            setProjects(updateProyects);
 
             toast.success(data.msg);
         } catch ({ response }) {
