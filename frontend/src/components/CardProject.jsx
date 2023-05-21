@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import GroupCollaborators from "./GroupCollaborators";
 
 const CardProject = ({ project }) => {
     return (
@@ -10,6 +11,7 @@ const CardProject = ({ project }) => {
                 {project.name}
             </h5>
             <p className="font-normal text-gray-100">{project.description}</p>
+            <GroupCollaborators collaborators={project?.collaborators} />
         </Link>
     );
 };
