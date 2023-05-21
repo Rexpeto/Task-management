@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import useAuth from "../hook/useAuth";
 import { RiSearchLine, RiArrowDropDownLine } from "react-icons/ri";
 
-const Header = () => {
-    const [dropdown, setDropdown] = useState(false);
+const Header = ({setDropdown, dropdown}) => {
+    
     const { auth } = useAuth();
 
     return (
