@@ -13,6 +13,7 @@ export const ProjectProvider = ({ children }) => {
     const [modalDelete, setModdalDelete] = useState(false);
     const [task, setTask] = useState({});
     const [collaborator, setCollaborator] = useState([]);
+    const [modalCollaborator, setModalCollaborator] = useState(false);
 
     const navigate = useNavigate();
     const token = localStorage.getItem("access_token");
@@ -238,6 +239,11 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const handleModalCollaborator = (collaborator) => {
+        setModalCollaborator(!modalCollaborator);
+        setCollaborator(collaborator);
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -258,6 +264,8 @@ export const ProjectProvider = ({ children }) => {
                 submitCollaborator,
                 collaborator,
                 addCollaborator,
+                modalCollaborator,
+                handleModalCollaborator,
             }}
         >
             {children}
