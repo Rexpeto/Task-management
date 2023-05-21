@@ -4,11 +4,12 @@ import useProject from "../hook/useProject";
 import { toast } from "react-toastify";
 
 const ModalDeleteCollaborator = () => {
-    const { collaborator, modalCollaborator, handleModalCollaborator } =
+    const { deleteCollaborator, modalCollaborator, handleModalCollaborator } =
         useProject();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        await deleteCollaborator();
     };
 
     return (
