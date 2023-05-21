@@ -1,8 +1,12 @@
 import useProject from "../hook/useProject";
 
 const CardCollaborator = ({ user }) => {
-    const { name, email } = user;
-    const { addCollaborator } = useProject();
+    const { _id, name, email } = user;
+    const { addCollaborator, project } = useProject();
+
+    const collaborator = project.collaborators.filter(
+        (item) => item._id === _id
+    );
 
     return (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -19,15 +23,24 @@ const CardCollaborator = ({ user }) => {
                     FullStack
                 </span>
                 <div className="flex mt-4 space-x-3 md:mt-6">
-                    <button
-                        type="button"
-                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 outline-none dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-150"
-                        onClick={() =>
-                            addCollaborator({ collaborators: email })
-                        }
-                    >
-                        Agregar al proyecto
-                    </button>
+                    {collaborator[0]?._id === _id ? (
+                        <button
+                            type="button"
+                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 outline-none dark:bg-red-600 dark:hover:bg-red-700 transition duration-150"
+                        >
+                            Eliminar
+                        </button>
+                    ) : (
+                        <button
+                            type="button"
+                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 outline-none dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-150"
+                            onClick={() =>
+                                addCollaborator({ collaborators: email })
+                            }
+                        >
+                            Agregar al proyecto
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
