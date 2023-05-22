@@ -29,10 +29,13 @@ export const getProject = async (req, res) => {
 //? Get projects the users
 export const getProjects = async (req, res) => {
     try {
-        const project = await Project.find()
+        const project = await Project.find({
+            $or: [
+                { collaborators: { $in: req.user } },
+                { creator: { $in: req.user } },
+            ],
+        })
             .populate("collaborators")
-            .where("creator")
-            .equals(req.user)
             .select("-tasks");
         res.status(200).json(project);
     } catch (error) {
