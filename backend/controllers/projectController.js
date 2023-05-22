@@ -42,10 +42,10 @@ export const getProjects = async (req, res) => {
 
 //? New project for user
 export const newProject = async (req, res) => {
-    const project = new Project(req.body);
-    project.creator = req.user._id;
-
     try {
+        const project = new Project(req.body);
+        project.creator = req.user._id;
+
         const projectStorage = await project.save();
         res.status(200).json(projectStorage);
     } catch (error) {
