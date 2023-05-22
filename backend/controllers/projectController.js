@@ -15,7 +15,13 @@ export const getProject = async (req, res) => {
                 return res.status(404).json({ msg: "El proyecto no existe" });
             }
 
-            if (project.creator.toString() !== req.user._id.toString()) {
+            if (
+                project.creator.toString() !== req.user._id.toString() &&
+                !project.collaborators.some(
+                    (collaborator) =>
+                        collaborator.id.toString() === req.user._id.toString()
+                )
+            ) {
                 return res.status(401).json({ msg: "Acción no válida" });
             }
 
