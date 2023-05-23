@@ -11,21 +11,23 @@ const CardCollaborator = ({ user }) => {
     );
 
     return (
-        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <div className="flex flex-col items-center py-10">
-                <img
-                    className="w-24 h-24 mb-3 rounded-full shadow-lg"
-                    src="../../public/profile.jpg"
-                    alt={name}
-                />
-                <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white first-letter:uppercase">
-                    {name}
-                </h5>
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                    FullStack
-                </span>
+        <div className="md:max-w-sm w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="flex flex-col items-center p-3 md:py-10  md:gap-0">
+                <div className="flex flex-row md:flex-col items-center gap-4 md:gap-0">
+                    <img
+                        className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                        src="../../public/profile.jpg"
+                        alt={name}
+                    />
+                    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white first-letter:uppercase">
+                        {name}
+                    </h5>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                        FullStack
+                    </span>
+                </div>
                 {admin && (
-                    <div className="flex mt-4 space-x-3 md:mt-6">
+                    <div className="flex mt-2 space-x-3 md:mt-6">
                         {collaborator[0]?._id === _id ? (
                             <button
                                 type="button"

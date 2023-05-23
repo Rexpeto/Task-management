@@ -9,7 +9,7 @@ const Projects = () => {
             <h1 className="text-2xl font-bold">Proyectos</h1>
 
             {projects.length ? (
-                <div className="grid grid-cols-3 mt-5 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 mt-5 gap-4">
                     {projects.map((project, index) => (
                         <CardProject project={project} key={index} />
                     ))}

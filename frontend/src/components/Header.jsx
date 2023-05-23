@@ -8,13 +8,13 @@ const Header = ({ setDropdown, dropdown }) => {
 
     return (
         <header className="px-4 py-3 bg-gray-800 fixed w-full z-10">
-            <div className="md:flex md:justify-between">
+            <div className="flex justify-between">
                 <Link to="/projects" className="flex gap-2 items-center">
                     <img src="../public/favicon.svg" alt="logo" />
                     <h2 className="font-semibold">Vypers</h2>
                 </Link>
 
-                <form className="min-w-[50rem]">
+                <form className="md:min-w-[50rem] md:block hidden">
                     <div className="flex">
                         <div className="relative w-full">
                             <input

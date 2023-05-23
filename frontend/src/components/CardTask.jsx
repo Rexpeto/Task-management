@@ -15,8 +15,8 @@ const CardTask = ({ task }) => {
     };
 
     return (
-        <div className="flex justify-between items-center w-full p-6 border bg-gray-800 rounded-lg shadow dark:border-gray-700">
-            <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row justify-between items-center w-full p-6 border bg-gray-800 rounded-lg shadow dark:border-gray-700">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-2 mb-5 md:mb-0">
                 <div>
                     <h3 className="font-bold text-xl first-letter:uppercase">
                         {name}

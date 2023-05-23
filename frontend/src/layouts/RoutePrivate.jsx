@@ -19,9 +19,12 @@ const RoutePrivate = () => {
                 <div>
                     <ToastContainer theme="dark" />
                     <Header setDropdown={setDropdown} dropdown={dropdown} />
-                    <div className="md:flex md:min-h-screen pt-[4rem]" onClick={() => setDropdown(false)}>
+                    <div
+                        className="md:flex md:min-h-screen pt-[4rem]"
+                        onClick={() => setDropdown(false)}
+                    >
                         <Sidebar />
-                        <main className="p-4 pl-[13rem] w-full">
+                        <main className="p-4 md:pl-[13rem] w-full">
                             <Outlet />
                         </main>
                     </div>
