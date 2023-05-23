@@ -289,6 +289,27 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const changeStatusTask = async (id, status) => {
+        if (!token) return;
+
+        try {
+            const { data } = await clientAxiosPrivate.post(
+                `/task/status/${id}`,
+                { status }
+            );
+
+            const updateProject = { ...project };
+
+            updateProject.tasks = updateProject.tasks.map((taskState) =>
+                taskState._id === data._id ? data : taskState
+            );
+
+            setProject(updateProject);
+        } catch ({ response: { data } }) {
+            toast.error(data.msg);
+        }
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -312,6 +333,7 @@ export const ProjectProvider = ({ children }) => {
                 modalCollaborator,
                 handleModalCollaborator,
                 deleteCollaborator,
+                changeStatusTask,
             }}
         >
             {children}
