@@ -111,7 +111,7 @@ export const changeStatus = async (req, res) => {
 
         if (
             task.project.creator.toString() !== req.user._id.toString() &&
-            !task.collaborators.some(
+            !task.project.collaborators.some(
                 (collaborator) =>
                     collaborator._id.toString() === req.user._id.toString()
             )
