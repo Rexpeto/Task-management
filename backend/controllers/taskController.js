@@ -127,6 +127,8 @@ export const changeStatus = async (req, res) => {
         }
 
         task.status = !status;
+        task.complete = req.user._id;
+
         const newStatus = await task.save();
         res.status(200).json(newStatus);
     } catch (error) {
