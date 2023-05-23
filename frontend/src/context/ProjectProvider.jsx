@@ -14,6 +14,7 @@ export const ProjectProvider = ({ children }) => {
     const [task, setTask] = useState({});
     const [collaborator, setCollaborator] = useState([]);
     const [modalCollaborator, setModalCollaborator] = useState(false);
+    const [search, setSearch] = useState(false);
 
     const navigate = useNavigate();
     const token = localStorage.getItem("access_token");
@@ -310,6 +311,10 @@ export const ProjectProvider = ({ children }) => {
         }
     };
 
+    const handleSearch = () => {
+        setSearch(!search);
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -334,6 +339,8 @@ export const ProjectProvider = ({ children }) => {
                 handleModalCollaborator,
                 deleteCollaborator,
                 changeStatusTask,
+                handleSearch,
+                search
             }}
         >
             {children}
