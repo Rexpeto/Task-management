@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
+import Search from "../components/Search";
 
 const RoutePrivate = () => {
     const { auth, loading } = useAuth();
@@ -18,6 +19,7 @@ const RoutePrivate = () => {
             {auth._id ? (
                 <div>
                     <ToastContainer theme="dark" />
+                    <Search />
                     <Header setDropdown={setDropdown} dropdown={dropdown} />
                     <div
                         className="md:flex md:min-h-screen pt-[4rem]"
