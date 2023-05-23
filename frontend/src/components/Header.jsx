@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../hook/useAuth";
+import useProject from "../hook/useProject";
 import { RiSearchLine, RiArrowDropDownLine } from "react-icons/ri";
 
 const Header = ({ setDropdown, dropdown }) => {
     const { auth } = useAuth();
+    const { handleSearch } = useProject();
 
     return (
         <header className="px-4 py-3 bg-gray-800 fixed w-full z-10">
@@ -17,16 +18,12 @@ const Header = ({ setDropdown, dropdown }) => {
                 <form className="md:min-w-[50rem] md:block hidden">
                     <div className="flex">
                         <div className="relative w-full">
-                            <input
-                                type="search"
-                                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 rounded-l-lg transition outline-none duration-150"
-                                placeholder="Buscar"
-                            />
                             <button
-                                type="submit"
-                                className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 outline-none dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-150"
+                                type="button"
+                                className="flex items-center gap-2 p-1.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-500 dark:focus:text-gray-200 dark:focus:border-blue-500 rounded-l-lg transition outline-none duration-150"
+                                onClick={() => handleSearch()}
                             >
-                                <RiSearchLine className="text-xl" />
+                                <RiSearchLine /> Buscar
                             </button>
                         </div>
                     </div>
