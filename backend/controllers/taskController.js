@@ -92,7 +92,14 @@ export const deleteTask = async (req, res) => {
             return res.status(403).json({ msg: "Acción no válida" });
         }
 
-        task.deleteOne();
+        const project = await Project.findOne(task.project._id);
+        project.tasks.pull(task._id);
+
+        await Promise.allSettled([
+            await project.save(),
+            await task.deleteOne()
+        ])
+
         res.status(200).json({ msg: "Eliminado con exito" });
     } catch (error) {
         console.log(error);
