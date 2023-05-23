@@ -8,7 +8,7 @@ export const getProject = async (req, res) => {
     try {
         if (id.match(/^[0-9a-fA-F]{24}$/)) {
             const project = await Project.findById(id.trim())
-                .populate({ path: "tasks", populate: { path: 'complete' } })
+                .populate({ path: "tasks", populate: { path: "complete", select: "name" } })
                 .populate("collaborators", "name email");
 
             if (!project) {
