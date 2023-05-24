@@ -186,14 +186,10 @@ export const ProjectProvider = ({ children }) => {
 
         try {
             const { data } = await clientAxiosPrivate.post(`/task/${id}`);
-            toast.success(data.msg);
 
-            const updateProject = { ...project };
-            updateProject.tasks = updateProject.tasks.filter(
-                (taskState) => taskState._id !== id
-            );
+            //? Socket.io
+            socket.emit("delete task", data);
 
-            setProject(updateProject);
             setModdalDelete(false);
         } catch ({ response }) {
             toast.error(response.data.msg);
@@ -328,6 +324,15 @@ export const ProjectProvider = ({ children }) => {
         setProject(updateProject);
     };
 
+    const handleDeleteTask = (id) => {
+        const updateProject = { ...project };
+        updateProject.tasks = updateProject.tasks.filter(
+            (taskState) => taskState._id !== id
+        );
+
+        setProject(updateProject);
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -355,6 +360,7 @@ export const ProjectProvider = ({ children }) => {
                 handleSearch,
                 search,
                 submitTaskProject,
+                handleDeleteTask,
             }}
         >
             {children}
