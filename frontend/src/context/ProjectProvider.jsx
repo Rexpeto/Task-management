@@ -169,12 +169,9 @@ export const ProjectProvider = ({ children }) => {
 
             handleModalTask();
 
-            const updateProject = { ...project };
-            updateProject.tasks = updateProject.tasks.map((taskState) =>
-                taskState._id === data._id ? data : taskState
-            );
+            //? Socket
+            socket.emit("edit task", data);
 
-            setProject(updateProject);
             toast.success("Tarea actualizada con exito");
         } catch ({ response }) {
             toast.error(response.data.msg);
@@ -334,6 +331,15 @@ export const ProjectProvider = ({ children }) => {
         setProject(updateProject);
     };
 
+    const handleEditTask = (task) => {
+        const updateProject = { ...project };
+        updateProject.tasks = updateProject.tasks.map((taskState) =>
+            taskState._id === task._id ? task : taskState
+        );
+
+        setProject(updateProject);
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -362,6 +368,7 @@ export const ProjectProvider = ({ children }) => {
                 search,
                 submitTaskProject,
                 handleDeleteTask,
+                handleEditTask,
             }}
         >
             {children}
