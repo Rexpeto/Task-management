@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MdEditNote, MdAssignmentAdd } from "react-icons/md";
 import { RxCommit } from "react-icons/rx";
+import io from "socket.io-client";
 import useProject from "../../hook/useProject";
 import useAdmin from "../../hook/useAdmin";
 import ModalFormTask from "../../components/ModalFormTask";
@@ -10,6 +11,8 @@ import ModalDelete from "../../components/ModalDelete";
 import CardCollaborator from "../../components/CardCollaborator";
 import ModalDeleteCollaborator from "../../components/ModalDeleteCollaborator";
 
+let socket;
+
 const Project = () => {
     const { id } = useParams();
     const { getProject, project, loading, handleModalTask } = useProject();
@@ -17,6 +20,18 @@ const Project = () => {
     useEffect(() => {
         getProject(id);
     }, []);
+
+    useEffect(() => {
+        socket = io(import.meta.env.VITE_SOCKET_URL);
+        //? Socket event
+        socket.emit("open project", id);
+    }, []);
+
+    useEffect(() => {
+        socket.on("respuesta", (data) => {
+            console.log(data);
+        });
+    });
 
     const { name, description, tasks, collaborators } = project;
     const admin = useAdmin();
