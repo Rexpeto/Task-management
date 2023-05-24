@@ -22,6 +22,7 @@ const Project = () => {
         handleModalTask,
         submitTaskProject,
         handleDeleteTask,
+        handleEditTask,
     } = useProject();
 
     useEffect(() => {
@@ -44,6 +45,12 @@ const Project = () => {
         socket.on("deleted task", (task) => {
             if (task.project._id === project._id) {
                 handleDeleteTask(task._id);
+            }
+        });
+
+        socket.on("editing task", (task) => {
+            if (task.project._id === project._id) {
+                handleEditTask(task);
             }
         });
     });
