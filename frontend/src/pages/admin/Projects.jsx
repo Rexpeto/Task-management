@@ -1,8 +1,11 @@
+import { useEffect } from "react";
+import io from "socket.io-client";
 import CardProject from "../../components/CardProject";
 import useProject from "../../hook/useProject";
 
 const Projects = () => {
     const { projects } = useProject();
+    const socket = io(import.meta.env.VITE_SOCKET_URL);
 
     return (
         <>
