@@ -95,12 +95,12 @@ export const deleteTask = async (req, res) => {
         const project = await Project.findOne(task.project._id);
         project.tasks.pull(task._id);
 
+        res.status(200).json(task);
+
         await Promise.allSettled([
             await project.save(),
-            await task.deleteOne()
-        ])
-
-        res.status(200).json({ msg: "Eliminado con exito" });
+            await task.deleteOne(),
+        ]);
     } catch (error) {
         console.log(error);
     }
@@ -130,7 +130,9 @@ export const changeStatus = async (req, res) => {
         task.complete = req.user._id;
 
         await task.save();
-        const newStatus = await Task.findById(id).populate("project").populate("complete");
+        const newStatus = await Task.findById(id)
+            .populate("project")
+            .populate("complete");
 
         res.status(200).json(newStatus);
     } catch (error) {
