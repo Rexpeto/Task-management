@@ -2,9 +2,11 @@ import { createContext, useState, useEffect } from "react";
 import clientAxiosPrivate from "../config/clientAxiosPrivate";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import io from "socket.io-client";
 
 const ProjectContext = createContext();
 
+let socket;
 export const ProjectProvider = ({ children }) => {
     const [projects, setProjects] = useState([]);
     const [project, setProject] = useState({});
@@ -33,6 +35,10 @@ export const ProjectProvider = ({ children }) => {
         };
 
         getProject();
+    }, []);
+
+    useEffect(() => {
+        socket = io(import.meta.env.VITE_SOCKET_URL);
     }, []);
 
     const submitProject = async (project) => {
@@ -145,10 +151,9 @@ export const ProjectProvider = ({ children }) => {
 
             handleModalTask();
 
-            const updateProject = { ...project };
-            updateProject.tasks = [...project.tasks, data];
+            //? Socket.io
+            socket.emit("new task", data);
 
-            setProject(updateProject);
             toast.success("Tarea agregada con exito");
         } catch ({ response }) {
             toast.error(response.data.msg);
@@ -315,6 +320,14 @@ export const ProjectProvider = ({ children }) => {
         setSearch(!search);
     };
 
+    //? Socket.io
+    const submitTaskProject = (task) => {
+        const updateProject = { ...project };
+        updateProject.tasks = [...updateProject.tasks, task];
+
+        setProject(updateProject);
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -340,7 +353,8 @@ export const ProjectProvider = ({ children }) => {
                 deleteCollaborator,
                 changeStatusTask,
                 handleSearch,
-                search
+                search,
+                submitTaskProject,
             }}
         >
             {children}
