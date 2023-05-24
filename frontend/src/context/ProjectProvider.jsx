@@ -190,6 +190,7 @@ export const ProjectProvider = ({ children }) => {
             //? Socket.io
             socket.emit("delete task", data);
 
+            toast.success("Tarea eliminada con exito");
             setModdalDelete(false);
         } catch ({ response }) {
             toast.error(response.data.msg);
