@@ -63,4 +63,9 @@ io.on("connection", (socket) => {
         const project = task.project;
         socket.to(project._id).emit("deleted task", task);
     });
+
+    socket.on("edit task", (task) => {
+        const project = task.project._id;
+        socket.to(project).emit("editing task", task);
+    });
 });
