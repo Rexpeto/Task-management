@@ -15,7 +15,8 @@ let socket;
 
 const Project = () => {
     const { id } = useParams();
-    const { getProject, project, loading, handleModalTask } = useProject();
+    const { getProject, project, loading, handleModalTask, submitTaskProject } =
+        useProject();
 
     useEffect(() => {
         getProject(id);
@@ -28,8 +29,10 @@ const Project = () => {
     }, []);
 
     useEffect(() => {
-        socket.on("respuesta", (data) => {
-            console.log(data);
+        socket.on("add task", (newTask) => {
+            if (newTask.project === project._id) {
+                submitTaskProject(newTask);
+            }
         });
     });
 
