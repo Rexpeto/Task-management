@@ -298,13 +298,8 @@ export const ProjectProvider = ({ children }) => {
                 { status }
             );
 
-            const updateProject = { ...project };
-
-            updateProject.tasks = updateProject.tasks.map((taskState) =>
-                taskState._id === data._id ? data : taskState
-            );
-
-            setProject(updateProject);
+            //? Socket
+            socket.emit("change status", data);
         } catch ({ response: { data } }) {
             toast.error(data.msg);
         }
@@ -333,6 +328,16 @@ export const ProjectProvider = ({ children }) => {
 
     const handleEditTask = (task) => {
         const updateProject = { ...project };
+        updateProject.tasks = updateProject.tasks.map((taskState) =>
+            taskState._id === task._id ? task : taskState
+        );
+
+        setProject(updateProject);
+    };
+
+    const handleChangeStatus = (task) => {
+        const updateProject = { ...project };
+
         updateProject.tasks = updateProject.tasks.map((taskState) =>
             taskState._id === task._id ? task : taskState
         );
@@ -369,6 +374,7 @@ export const ProjectProvider = ({ children }) => {
                 submitTaskProject,
                 handleDeleteTask,
                 handleEditTask,
+                handleChangeStatus,
             }}
         >
             {children}
