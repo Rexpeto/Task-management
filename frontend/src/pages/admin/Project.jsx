@@ -23,6 +23,7 @@ const Project = () => {
         submitTaskProject,
         handleDeleteTask,
         handleEditTask,
+        handleChangeStatus,
     } = useProject();
 
     useEffect(() => {
@@ -51,6 +52,12 @@ const Project = () => {
         socket.on("editing task", (task) => {
             if (task.project._id === project._id) {
                 handleEditTask(task);
+            }
+        });
+
+        socket.on("changing status", (task) => {
+            if (task.project._id === project._id) {
+                handleChangeStatus(task);
             }
         });
     });
