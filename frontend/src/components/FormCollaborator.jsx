@@ -20,7 +20,7 @@ const FormCollaborator = () => {
     };
 
     return (
-        <form className="min-w-[50rem]" onSubmit={handleSubmit}>
+        <form className="md:min-w-[50rem]" onSubmit={handleSubmit}>
             <div className="flex">
                 <div className="relative w-full">
                     <input

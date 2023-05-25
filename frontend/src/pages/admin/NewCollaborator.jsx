@@ -32,7 +32,7 @@ const NewCollaborator = () => {
                 <div className="mt-5">
                     <FormCollaborator />
                     {collaborator.length ? (
-                        <div className="grid grid-cols-4 gap-4 mt-5">
+                        <div className="grid md:grid-cols-4 gap-4 mt-10 md:mt-5">
                             {collaborator.map((user) => (
                                 <CardCollaborator user={user} key={user._id} />
                             ))}
