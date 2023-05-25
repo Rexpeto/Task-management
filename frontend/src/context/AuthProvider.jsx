@@ -38,8 +38,14 @@ export const AuthProvider = ({ children }) => {
         authenticator();
     }, []);
 
+    const signOut = () => {
+        localStorage.removeItem("access_token");
+        setAuth({});
+        navigate("/");
+    };
+
     return (
-        <AuthContext.Provider value={{ setAuth, auth, loading }}>
+        <AuthContext.Provider value={{ setAuth, auth, loading, signOut }}>
             {children}
         </AuthContext.Provider>
     );

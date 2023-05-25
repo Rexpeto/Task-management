@@ -345,6 +345,13 @@ export const ProjectProvider = ({ children }) => {
         setProject(updateProject);
     };
 
+    //? Sign off user
+    const signOff = () => {
+        setProjects([]);
+        setProject({});
+        setTask({});
+    };
+
     return (
         <ProjectContext.Provider
             value={{
@@ -375,6 +382,7 @@ export const ProjectProvider = ({ children }) => {
                 handleDeleteTask,
                 handleEditTask,
                 handleChangeStatus,
+                signOff,
             }}
         >
             {children}

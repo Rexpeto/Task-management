@@ -4,8 +4,15 @@ import useProject from "../hook/useProject";
 import { RiSearchLine, RiArrowDropDownLine } from "react-icons/ri";
 
 const Header = ({ setDropdown, dropdown }) => {
-    const { auth } = useAuth();
-    const { handleSearch } = useProject();
+    const { auth, signOut } = useAuth();
+    const { handleSearch, signOff } = useProject();
+
+    const handleSignOut = (e) => {
+        e.preventDefault();
+
+        signOff();
+        signOut();
+    };
 
     return (
         <header className="px-4 py-3 bg-gray-800 fixed w-full z-10">
@@ -60,12 +67,13 @@ const Header = ({ setDropdown, dropdown }) => {
                             </div>
                         </div>
                         <div className="py-1">
-                            <a
-                                href="#"
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white transition duration-150"
+                            <button
+                                type="button"
+                                className="flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white transition duration-150"
+                                onClick={(e) => handleSignOut(e)}
                             >
                                 Cerrar sesión
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
