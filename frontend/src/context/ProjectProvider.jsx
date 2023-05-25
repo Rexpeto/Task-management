@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import useAuth from "../hook/useAuth";
 import clientAxiosPrivate from "../config/clientAxiosPrivate";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +18,7 @@ export const ProjectProvider = ({ children }) => {
     const [collaborator, setCollaborator] = useState([]);
     const [modalCollaborator, setModalCollaborator] = useState(false);
     const [search, setSearch] = useState(false);
+    const { auth } = useAuth();
 
     const navigate = useNavigate();
     const token = localStorage.getItem("access_token");
@@ -35,7 +37,7 @@ export const ProjectProvider = ({ children }) => {
         };
 
         getProject();
-    }, []);
+    }, [auth]);
 
     useEffect(() => {
         socket = io(import.meta.env.VITE_SOCKET_URL);
